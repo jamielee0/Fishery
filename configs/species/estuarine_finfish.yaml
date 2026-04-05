@@ -1,0 +1,63 @@
+# Species Config — Estuarine Finfish
+# Status: PROPOSED — species not yet approved
+# Candidate: Southern Flounder (Paralichthys lethostigma)
+# Selection requires data overlap confirmation during Day 3
+
+species_id: "estuarine_finfish"
+common_name: "Southern Flounder"  # PROPOSED, not approved
+scientific_name: "Paralichthys lethostigma"  # PROPOSED, not approved
+target_type: "estuarine_finfish"
+approval_status: "PROPOSED"
+selection_rationale: "Benthic, heavily surveyed by NCDMF, textbook hypoxia avoidance behavior"
+approval_gate: "Day 3 data overlap confirmation required"
+
+# Hypothesis roles
+hypothesis_roles: ["H1", "H2"]
+primary_compression_mechanism: "hypoxia-temperature squeeze"
+
+# Response variable
+response_variable:
+  type: null  # TODO: Approve (PROPOSED: standardized CPUE)
+  source: "fishery_independent"  # TODO: Confirm NCDMF data overlap
+  standardization: null
+  known_biases:
+    - "CPUE may spike during compression events (same paradox as blue crab)"
+    - "Species must be confirmed to have sufficient survey overlap"
+    - "Fishing mortality confound (heavily exploited species)"
+
+# Depth policy
+depth_policy: "bottom_required"  # Obligately benthic flatfish
+depth_fallback: null
+
+# Healthy ranges — ALL REQUIRE LITERATURE SIGN-OFF (DEC-005)
+healthy_ranges:
+  temperature_c:
+    lower: null  # TODO: Literature value
+    upper: null  # TODO: Literature value
+    life_stage: null  # TODO: Juvenile vs. adult
+    evidence: "TODO: Citation needed"
+  salinity_psu:
+    lower: null
+    upper: null
+    life_stage: null
+    evidence: "TODO: Citation needed"
+  dissolved_oxygen_mg_l:
+    lower: null  # TODO: Literature value
+    upper: null
+    life_stage: null
+    evidence: "TODO: Citation needed"
+
+# Degree-day parameters
+degree_day:
+  relevance: "high"  # Expected to improve prediction (B1)
+  base_temperature_c: null
+  evidence: "TODO: Citation needed"
+
+# Variable relevance by family
+variable_relevance:
+  temperature: "essential"
+  salinity: "essential"
+  dissolved_oxygen: "essential"
+  turbidity: "low"
+  degree_days: "high"
+  watershed_forcing: "indirect"

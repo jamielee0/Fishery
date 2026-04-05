@@ -1,0 +1,272 @@
+# ============================================================================
+# Trees to Seas v1 — Working Project Configuration (Day 2)
+# ============================================================================
+# This file extends project_config_template.yaml with Day 2 science structure.
+# Values marked TODO require human approval or Day 3 data inventory results.
+# Values marked PROPOSED are recommended but not yet approved.
+# Values marked APPROVED are confirmed from Day 1 brief or human sign-off.
+# ============================================================================
+
+# --- Geography ---
+geography:
+  name: "North Carolina estuarine systems"  # APPROVED (DEC-001)
+  region: "NC"
+  sub_systems: []  # TODO: Approve exact sub-systems after Day 3 data overlap audit
+  # PROPOSED pilot sub-systems based on reviewer notes:
+  # - Neuse River Estuary (strongest hypoxia-compression literature)
+  # - Pamlico Sound (large, multi-species overlap)
+  # - Albemarle Sound (potential estuary holdout if sample size permits)
+  coordinate_bounds:
+    lat_min: null  # TODO: Set after geography approval
+    lat_max: null
+    lon_min: null
+    lon_max: null
+  crs: "EPSG:4326"
+
+# --- Focal Species & Targets ---
+focal_species:
+
+  - name: "Blue crab"
+    scientific_name: "Callinectes sapidus"
+    type: "mobile_crustacean"
+    status: "APPROVED"  # Confirmed in brief_v1.md
+    response_variable: null  # TODO: Approve (PROPOSED: standardized CPUE from fishery-independent survey)
+    hypothesis_roles: ["H1", "H2"]
+    trait_table: "01_literature_map/trait_tables/blue_crab.md"
+    healthy_ranges:
+      # TODO: All thresholds require literature sign-off before feature engineering (DEC-005)
+      temperature_c: [null, null]
+      salinity_psu: [null, null]
+      dissolved_oxygen_mg_l: [null, null]  # PROPOSED lower bound: ~2.0-3.0 mg/L (needs literature)
+    degree_day_base_c: null  # TODO: Literature search needed
+    primary_compression_mechanism: "hypoxia-temperature squeeze"
+    depth_policy: "bottom_required"  # Bottom measurements required for benthic taxon
+
+  - name: "Eastern oyster"
+    scientific_name: "Crassostrea virginica"
+    type: "sessile_bivalve"
+    status: "APPROVED"  # Confirmed in brief_v1.md
+    response_variable: null  # TODO: Approve (PROPOSED: live density or condition metric)
+    hypothesis_roles: ["H1", "H3"]
+    trait_table: "01_literature_map/trait_tables/eastern_oyster.md"
+    healthy_ranges:
+      temperature_c: [null, null]
+      salinity_psu: [null, null]  # NOTE: Upper bound complicated by disease dynamics (Dermo)
+      dissolved_oxygen_mg_l: [null, null]
+    degree_day_base_c: null  # Expected low relevance
+    primary_compression_mechanism: "osmotic stress from freshening"
+    depth_policy: "bottom_required"
+    known_confounders:
+      - "Perkinsus marinus (Dermo) disease at high salinity + high temperature"
+      - "Sedimentation/burial (B2 deferred)"
+
+  - name: "Southern Flounder"
+    scientific_name: "Paralichthys lethostigma"
+    type: "estuarine_finfish"
+    status: "PROPOSED"  # NOT YET APPROVED — requires data overlap confirmation
+    selection_rationale: "Benthic, heavily surveyed by NCDMF, textbook hypoxia avoidance"
+    response_variable: null  # TODO: Approve
+    hypothesis_roles: ["H1", "H2"]
+    trait_table: "01_literature_map/trait_tables/estuarine_finfish.md"
+    healthy_ranges:
+      temperature_c: [null, null]
+      salinity_psu: [null, null]
+      dissolved_oxygen_mg_l: [null, null]
+    degree_day_base_c: null  # TODO: Literature search needed
+    primary_compression_mechanism: "hypoxia-temperature squeeze"
+    depth_policy: "bottom_required"
+
+  - name: "Seagrass / SAV"
+    scientific_name: null  # TODO: Approve species (PROPOSED: Zostera marina for thermal-limit story)
+    type: "habitat_indicator"
+    status: "PROPOSED"  # Role approved, species not yet confirmed
+    response_variable: null  # TODO: Approve (PROPOSED: mapped extent or presence/absence)
+    hypothesis_roles: ["H1"]
+    trait_table: "01_literature_map/trait_tables/seagrass_sav.md"
+    healthy_ranges:
+      temperature_c: [null, null]  # Zostera ~25C upper if selected
+      salinity_psu: [null, null]
+      turbidity_ntu: [null, null]
+      light_par: [null, null]
+    degree_day_base_c: null  # Expected low relevance
+    primary_compression_mechanism: "thermal limits and light limitation"
+    depth_policy: "shallow_benthic"
+    temporal_resolution_concern: "SAV data may be annual or episodic — see ASM-005"
+
+# --- Variable Classification ---
+# Strict staging per ontology — do not mix families in kitchen-sink models
+variable_families:
+  forcing:
+    description: "External watershed and weather drivers"
+    modeling_rule: "Use mainly upstream of local state models for H3"
+    approved_variables:
+      - "basin_precipitation"
+      - "river_discharge"
+      - "air_temperature"
+    useful_variables:
+      - "wind_speed_direction"
+
+  local_estuarine_state:
+    description: "Direct environmental conditions organisms experience"
+    modeling_rule: "Main explanatory layer for H1"
+    approved_variables:
+      - "bottom_water_temperature"
+      - "bottom_salinity"
+      - "bottom_dissolved_oxygen"
+      - "turbidity_clarity"  # Essential for SAV, useful otherwise
+    useful_variables:
+      - "stratification_metric"  # If paired-depth data available
+
+  habitat_condition:
+    description: "Physical context that shapes exposure severity"
+    modeling_rule: "Use as modifiers/context, not as substitutes for state"
+    approved_variables:
+      - "bathymetry_depth"
+    useful_variables:
+      - "benthic_habitat_substrate"
+      - "estuarine_position"
+
+  engineered_features:
+    description: "Literature-backed summaries of exposure through time/space"
+    modeling_rule: "Main H2 layer; secondary support for H1/B1"
+    approved_variables:
+      - "daily_healthy_unsafe_status"
+      - "consecutive_unsafe_days"
+      - "habitat_days_in_healthy_range"
+      - "hypoxia_duration_metric"
+    useful_variables:
+      - "salinity_excursion_metric"
+      - "heat_event_metric"
+      - "degree_days"
+      - "habitat_compression_temporal"
+
+  benchmark:
+    description: "Intentionally simple static or survey-timed covariates"
+    modeling_rule: "Use only in baseline models testing the central claim"
+    variables:
+      - "calendar_week_season"
+      - "static_zone_grid_id"
+      - "annual_seasonal_mean_state"
+      - "same_day_survey_snapshot"
+
+# --- Variables Deferred from v1 ---
+deferred_variables:
+  - name: "spatial_volumetric_compression"
+    reason: "Heavy interpolation assumptions; engineering risk too high"
+    revisit: "Day 3 spatial density assessment"
+  - name: "oyster_disease_covariates"
+    reason: "No confirmed time-aligned NC dataset"
+    revisit: "Day 3 data inventory"
+  - name: "fishing_mortality_effort"
+    reason: "Spatially aligned effort data not confirmed"
+    revisit: "Day 3 data inventory"
+  - name: "chlorophyll_a"
+    reason: "Stabilize simpler light pathway first"
+    revisit: "After basic clarity pathway is stable"
+  - name: "wave_energy_3d_hydro"
+    reason: "Too much engineering load for v1"
+    revisit: "Future work"
+
+# --- Variables Rejected from v1 ---
+rejected_variables:
+  - name: "point_sampled_nutrients"
+    reason: "Too sparse for dynamic weekly modeling"
+  - name: "direct_sedimentation_rates"
+    reason: "No high-frequency NC dataset confirmed"
+  - name: "static_annual_landuse"
+    reason: "Too static for H1 dynamic requirement"
+  - name: "surface_only_state_for_benthic"
+    reason: "Invalid proxy for benthic taxa"
+  - name: "retrospective_thresholds"
+    reason: "Violates DEC-005"
+
+# --- Date Ranges ---
+date_ranges:
+  nominal_start: null   # TODO: Day 3 data inventory
+  nominal_end: null
+  overlap_start: null   # TODO: Day 3 overlap audit
+  overlap_end: null
+  notes: "Use strongest overlap window, not longest wish list (brief_v1.md)."
+
+# --- Data Source Paths ---
+source_paths:
+  # All paths are null until Day 3 data inventory confirms access
+  ferrymon: null
+  noaa_stations: null
+  usgs_stations: null
+  ty_github: null
+  fishery_independent: null
+  oyster_layers: null
+  seagrass_layers: null
+  habitat_layers: null
+  watershed_landuse: null
+
+# --- Analysis Unit ---
+analysis_unit:
+  preferred: "estuary-cell-week"
+  fallback: "estuary-week"
+  spatial_resolution: null  # TODO: Define cell size
+  temporal_resolution: "weekly"  # PROPOSED; may move to daily if data supports (ASM-004)
+  notes: "Sub-weekly resolution may be needed for DO crash events"
+
+# --- Habitat Compression Definition ---
+habitat_compression:
+  v1_default: "temporal_station_based"
+  # PROPOSED: Temporal squeeze at stations/cells as v1 default
+  # Spatial safe-area interpolation only as secondary extension
+  # Human must approve this choice before Day 3
+  temporal_definition:
+    formula: "CompressionTemporal = 1 - HabitatDays / |W|"
+    additional_metric: "MaxConsecutiveUnsafeDays"
+    lookback_window: null  # TODO: Approve window length (days)
+  spatial_extension:
+    status: "deferred"
+    formula: "CompressionSpatial = 1 - sum(a_i * Healthy_i) / sum(a_i)"
+    notes: "Only if Day 3 shows sufficient spatial density and bottom-state coverage"
+  missing_data_rule: "Feature window computable only if minimum temporal coverage met; no silent gap filling"
+  response_alignment_rule: "Every response observation must carry exact preceding exposure window, depth policy, and station/cell mapping"
+
+# --- Validation Split Strategy ---
+validation:
+  strategy: "time_blocked"  # APPROVED (DEC-003)
+  held_out_years: []  # TODO: Define after overlap window approved
+  secondary_strategy: "estuary_holdout"
+  notes: "Do not rely on random cross-validation alone (DEC-003)."
+
+# --- Benchmark Definitions ---
+benchmarks:
+  baselines:
+    - name: "static_zone_climatology"
+      description: "Static zone or climatology baseline"
+    - name: "season_only"
+      description: "Season-only or survey-timing baseline"
+    - name: "annual_mean"
+      description: "Annual or monthly mean environmental model"
+    - name: "temperature_only"
+      description: "Temperature-only and/or degree-day-only model"
+    - name: "conventional_glm_gam"
+      description: "Conventional GLM/GAM without compression features"
+    - name: "ml_baseline"
+      description: "One strong non-mechanistic ML baseline (optional)"
+  primary_model:
+    name: "dynamic_habitat_compression"
+    description: "Dynamic habitat model with explicit healthy-range and compression features"
+  primary_metric: null  # TODO: Approve
+  success_rule: >
+    Dynamic habitat model must beat best static baseline on held-out data,
+    remain reasonably calibrated, and retain advantage under key ablations.
+    (DEC-002, brief_v1.md success criterion)
+
+# --- Ablation Plan ---
+ablations:
+  features_to_remove_one_at_a_time:
+    - "temperature"
+    - "salinity"
+    - "dissolved_oxygen"
+    - "turbidity_light"
+    - "degree_days"
+    - "watershed_forcing"
+    - "habitat_layers"
+  additional_comparisons:
+    - "event_compression_vs_mean_only"    # H2 test
+    - "staged_vs_direct_watershed"         # H3 test

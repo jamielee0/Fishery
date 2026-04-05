@@ -1,0 +1,60 @@
+# Species Config — Blue Crab (Callinectes sapidus)
+# Status: APPROVED focal target (brief_v1.md)
+
+species_id: "blue_crab"
+common_name: "Blue crab"
+scientific_name: "Callinectes sapidus"
+target_type: "mobile_crustacean"
+
+# Hypothesis roles
+hypothesis_roles: ["H1", "H2"]
+primary_compression_mechanism: "hypoxia-temperature squeeze"
+
+# Response variable
+response_variable:
+  type: null  # TODO: Approve (PROPOSED: standardized_cpue)
+  source: "fishery_independent"  # TODO: Confirm NCDMF data
+  standardization: null  # TODO: Define CPUE standardization method
+  known_biases:
+    - "CPUE can spike under spatial crowding during compression events"
+    - "Gear selectivity varies by life stage"
+    - "Survey timing may miss peak compression periods"
+
+# Depth policy
+depth_policy: "bottom_required"
+depth_fallback: null  # TODO: Approve fallback if bottom data unavailable
+
+# Healthy ranges — ALL REQUIRE LITERATURE SIGN-OFF (DEC-005)
+healthy_ranges:
+  temperature_c:
+    lower: null  # TODO: Literature value
+    upper: null  # TODO: Literature value
+    life_stage: null  # TODO: Specify
+    evidence: "TODO: Citation needed"
+  salinity_psu:
+    lower: null  # TODO: Literature value
+    upper: null  # TODO: Literature value
+    life_stage: null
+    evidence: "TODO: Citation needed"
+  dissolved_oxygen_mg_l:
+    lower: null  # TODO: Literature value (commonly cited ~2.0-3.0 mg/L)
+    upper: null  # No upper bound expected
+    life_stage: null
+    evidence: "TODO: Citation needed"
+
+# Degree-day parameters
+degree_day:
+  relevance: "high"  # Expected to improve prediction (B1)
+  base_temperature_c: null  # TODO: Literature value
+  accumulation_start: null  # TODO: Define start rule
+  season_reset: null  # TODO: Define reset logic
+  evidence: "TODO: Citation needed"
+
+# Variable relevance by family
+variable_relevance:
+  temperature: "essential"
+  salinity: "essential"
+  dissolved_oxygen: "essential"
+  turbidity: "low"
+  degree_days: "high"
+  watershed_forcing: "indirect"  # Via H3 staged pathway

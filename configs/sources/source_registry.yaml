@@ -1,0 +1,189 @@
+# ============================================================================
+# Data Source Registry — Trees to Seas v1 (Day 2)
+# ============================================================================
+# Access status for all sources is UNCONFIRMED until Day 3 inventory.
+# Do not claim access that has not been tested.
+# ============================================================================
+
+sources:
+
+  # --- Forcing Variable Sources ---
+
+  - id: "noaa_weather"
+    name: "NOAA Weather / Gridded Products"
+    provider: "NOAA"
+    family: "forcing"
+    variables_expected:
+      - "basin_precipitation"
+      - "air_temperature"
+      - "wind_speed_direction"
+    access_method: null  # TODO: API, download, or gridded product
+    url: null  # TODO: Day 3 inventory
+    temporal_range: null  # TODO: Day 3 inventory
+    temporal_resolution: "daily"  # Expected
+    spatial_coverage: "NC coastal region"
+    spatial_resolution: null  # TODO: Station vs. gridded
+    format: null  # TODO: Day 3
+    access_status: "UNCONFIRMED"
+    credentials_needed: "No (public)"
+    notes: ""
+
+  - id: "usgs_stations"
+    name: "USGS Streamflow and Water Quality"
+    provider: "USGS"
+    family: "forcing"
+    variables_expected:
+      - "river_discharge"
+    access_method: "API"  # NWIS web services
+    url: null  # TODO: Identify specific NC gauges
+    temporal_range: null  # TODO: Day 3
+    temporal_resolution: "daily"
+    spatial_coverage: null  # TODO: Identify gauges linked to NC estuaries
+    spatial_resolution: "gauge"
+    format: null
+    access_status: "UNCONFIRMED"
+    credentials_needed: "No (public API)"
+    notes: "Must identify gauges representative of receiving estuaries"
+
+  # --- Local Estuarine State Sources ---
+
+  - id: "ferrymon"
+    name: "FerryMon and Related Water-Quality Feeds"
+    provider: null  # TODO: Confirm provider
+    family: "local_estuarine_state"
+    variables_expected:
+      - "bottom_water_temperature"
+      - "bottom_salinity"
+      - "bottom_dissolved_oxygen"
+      - "turbidity_clarity"
+    access_method: null  # TODO: API or download
+    url: null  # TODO: Day 3
+    temporal_range: null  # TODO: Day 3
+    temporal_resolution: "sub-daily to daily"  # Expected
+    spatial_coverage: "NC ferry routes / estuarine transects"
+    spatial_resolution: "transect / station"
+    format: null
+    access_status: "UNCONFIRMED"
+    credentials_needed: null  # TODO
+    notes: "Key source for dynamic estuarine state. Must confirm bottom vs. surface measurements."
+    reviewer_concern: "Verify depth of measurement — surface readings invalid for benthic species"
+
+  - id: "noaa_estuarine"
+    name: "NOAA Estuarine Stations (NERRS, CO-OPS, etc.)"
+    provider: "NOAA"
+    family: "local_estuarine_state"
+    variables_expected:
+      - "bottom_water_temperature"
+      - "bottom_salinity"
+      - "bottom_dissolved_oxygen"
+      - "water_level"
+    access_method: "API"
+    url: null  # TODO: Identify NC estuarine stations
+    temporal_range: null
+    temporal_resolution: "sub-daily"  # Expected for continuous stations
+    spatial_coverage: null  # TODO: Identify NC estuarine stations
+    spatial_resolution: "station"
+    format: null
+    access_status: "UNCONFIRMED"
+    credentials_needed: "No (public API)"
+    notes: "Must confirm which stations have bottom sensors vs. surface only"
+
+  - id: "ty_github"
+    name: "Ty's GitHub Environmental Data"
+    provider: null  # TODO: Confirm repo and maintainer
+    family: "local_estuarine_state"
+    variables_expected: null  # TODO: Catalog after locating repo
+    access_method: "GitHub repo"
+    url: null  # TODO: Locate repo URL
+    temporal_range: null
+    temporal_resolution: null
+    spatial_coverage: null
+    spatial_resolution: null
+    format: null
+    access_status: "UNCONFIRMED"
+    credentials_needed: "No (public repo?)"
+    notes: "Referenced in brief_v1.md. Must locate, catalog variables, and confirm provenance before use."
+    provenance_requirement: "Source documentation required before any modeling use"
+
+  # --- Response Variable Sources ---
+
+  - id: "fishery_independent"
+    name: "Fishery-Independent Survey Data"
+    provider: null  # TODO: Likely NC DMF
+    family: "response"
+    variables_expected:
+      - "blue_crab_cpue"
+      - "finfish_cpue"
+    access_method: null  # TODO: May require data request
+    url: null
+    temporal_range: null
+    temporal_resolution: "survey event"
+    spatial_coverage: "NC estuarine waters"
+    spatial_resolution: "set / station / stratum"
+    format: null
+    access_status: "UNCONFIRMED"
+    credentials_needed: null  # TODO: May need formal data request
+    notes: "Critical for blue crab and finfish targets. Must include effort data for CPUE standardization."
+    survey_metadata_needed:
+      - "gear type"
+      - "tow duration / effort"
+      - "sampling design / stratification"
+      - "species identification protocols"
+      - "survey timing within year"
+
+  - id: "oyster_monitoring"
+    name: "Oyster Monitoring / Survey Layers"
+    provider: null  # TODO: Likely NC DMF or NOAA
+    family: "response"
+    variables_expected:
+      - "oyster_live_density"
+      - "oyster_condition"
+      - "reef_extent"
+    access_method: null
+    url: null
+    temporal_range: null
+    temporal_resolution: null  # TODO: May be seasonal or annual
+    spatial_coverage: null
+    spatial_resolution: "reef / site"
+    format: null
+    access_status: "UNCONFIRMED"
+    credentials_needed: null
+    notes: "Must confirm temporal resolution. If sparse, event-scale attribution limited."
+
+  - id: "sav_layers"
+    name: "Seagrass / SAV Mapping Data"
+    provider: null  # TODO: Likely NOAA or state agencies
+    family: "response"
+    variables_expected:
+      - "sav_extent"
+      - "sav_presence_absence"
+    access_method: null
+    url: null
+    temporal_range: null
+    temporal_resolution: null  # TODO: May be episodic (ASM-005)
+    spatial_coverage: null
+    spatial_resolution: "bed / polygon"
+    format: null
+    access_status: "UNCONFIRMED"
+    credentials_needed: null
+    notes: "Temporal resolution is a key risk. See ASM-005."
+
+  # --- Habitat-Condition Sources ---
+
+  - id: "habitat_layers"
+    name: "Bathymetry, Substrate, and Habitat Layers"
+    provider: null  # TODO: Multiple sources likely
+    family: "habitat_condition"
+    variables_expected:
+      - "bathymetry_depth"
+      - "benthic_habitat_substrate"
+    access_method: null
+    url: null
+    temporal_range: "static to episodic"
+    temporal_resolution: "static"
+    spatial_coverage: "NC estuarine waters"
+    spatial_resolution: null  # TODO
+    format: null
+    access_status: "UNCONFIRMED"
+    credentials_needed: null
+    notes: "Static layers; main risk is outdated maps and vertical datum mismatch"

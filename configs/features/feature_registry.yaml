@@ -1,0 +1,222 @@
+# ============================================================================
+# Feature Registry — Trees to Seas v1 (Day 2)
+# ============================================================================
+# All features classified by family, hypothesis role, priority, and status.
+# No numeric thresholds until literature sign-off (DEC-005).
+# Features marked TODO require definitions finalized before engineering.
+# ============================================================================
+
+# --- Engineered Features (Compression Metrics) ---
+
+engineered_features:
+
+  - id: "daily_healthy_unsafe_status"
+    name: "Daily healthy / unsafe status"
+    family: "engineered"
+    unit: "binary (0/1) or ordinal"
+    derived_from: ["state_variables", "threshold_library"]
+    formula_template: >
+      Healthy_{s,l,i,t} = 1 if every required direct state variable lies within
+      its literature-approved bound set for species s, life stage l; otherwise 0.
+    hypotheses: ["H1", "H2", "H3"]
+    priority: "essential"
+    status: "approved_concept"
+    species_specific: true
+    threshold_source: "TODO: Literature sign-off required (DEC-005)"
+    known_risks:
+      - "Circular if thresholds are tuned to outcomes"
+      - "Requires species-specific definitions finalized before any computation"
+    implementation_status: "not_implemented"  # TODO: Day 6-7
+
+  - id: "consecutive_unsafe_days"
+    name: "Consecutive unsafe days"
+    family: "engineered"
+    unit: "days"
+    derived_from: ["daily_healthy_unsafe_status"]
+    formula_template: >
+      MaxConsecutiveUnsafeDays_{s,l,i,W} = longest run of Unsafe=1 within lookback window W.
+    hypotheses: ["H2"]
+    priority: "essential"
+    status: "approved_concept"
+    species_specific: true
+    parameters_to_define:
+      - name: "lookback_window_days"
+        value: null  # TODO: Approve
+    known_risks:
+      - "Sensitive to missing days — gap fill policy needed"
+      - "Window choice can look arbitrary if not predeclared"
+    implementation_status: "not_implemented"
+
+  - id: "habitat_days"
+    name: "Habitat-days in healthy range"
+    family: "engineered"
+    unit: "days or proportion"
+    derived_from: ["daily_healthy_unsafe_status"]
+    formula_template: >
+      HabitatDays_{s,l,i,W} = sum over t in W of Healthy_{s,l,i,t}.
+      Report raw days or proportion = HabitatDays / |W|.
+    hypotheses: ["H1", "H2"]
+    priority: "essential"
+    status: "approved_concept"
+    species_specific: true
+    parameters_to_define:
+      - name: "lookback_window_days"
+        value: null  # TODO: Approve
+    known_risks:
+      - "Misalignment between exposure window and response date"
+    implementation_status: "not_implemented"
+
+  - id: "habitat_compression_temporal"
+    name: "Habitat compression metric (temporal)"
+    family: "engineered"
+    unit: "fraction (0-1)"
+    derived_from: ["habitat_days"]
+    formula_template: >
+      CompressionTemporal_{s,l,i,W} = 1 - HabitatDays_{s,l,i,W} / |W|
+    hypotheses: ["H2"]
+    priority: "essential"
+    status: "approved_concept"
+    species_specific: true
+    notes: "v1 default is temporal station-based. Spatial extension deferred."
+    implementation_status: "not_implemented"
+
+  - id: "hypoxia_duration"
+    name: "Hypoxia duration metric"
+    family: "engineered"
+    unit: "hours or days"
+    derived_from: ["bottom_dissolved_oxygen", "species_thresholds"]
+    formula_template: >
+      Hours or days with bottom DO below species-specific threshold within lookback window.
+    hypotheses: ["H1", "H2"]
+    priority: "essential"
+    status: "approved_concept"
+    species_specific: true
+    primary_targets: ["blue_crab", "estuarine_finfish"]
+    threshold: null  # TODO: Literature value (commonly ~2.0 mg/L)
+    known_risks:
+      - "Coarse sampling misses short severe events"
+      - "Daytime sampling misses nighttime DO minima"
+    implementation_status: "not_implemented"
+
+  - id: "salinity_excursion"
+    name: "Salinity excursion metric"
+    family: "engineered"
+    unit: "days out of bounds, variance, or max deviation"
+    derived_from: ["bottom_salinity", "species_thresholds"]
+    formula_template: >
+      Days with salinity outside species-specific bounds, variance, or maximum
+      single-event deviation within lookback window.
+    hypotheses: ["H1", "H3"]
+    priority: "useful"
+    status: "approved_concept"
+    species_specific: true
+    primary_targets: ["eastern_oyster", "blue_crab"]
+    known_risks:
+      - "Window and lag choices can look arbitrary if not predeclared"
+    implementation_status: "not_implemented"
+
+  - id: "heat_event_metric"
+    name: "Heat-event metric"
+    family: "engineered"
+    unit: "days above bound or cumulative exceedance"
+    derived_from: ["bottom_water_temperature", "species_thresholds"]
+    formula_template: >
+      Days with temperature above species-specific upper threshold, or cumulative
+      exceedance (degree-hours above threshold) within lookback window.
+    hypotheses: ["H1", "B1"]
+    priority: "useful"
+    status: "approved_concept"
+    species_specific: true
+    primary_targets: ["seagrass_sav", "blue_crab"]
+    known_risks:
+      - "Easy reviewer attack if bound or accumulation rule is ad hoc"
+    implementation_status: "not_implemented"
+
+  - id: "degree_days"
+    name: "Degree-days (cumulative thermal accumulation)"
+    family: "engineered"
+    unit: "accumulated C-time"
+    derived_from: ["bottom_water_temperature"]
+    formula_template: >
+      DD = sum over t of max(0, Temp_t - BaseTemp) for each day in season.
+    hypotheses: ["B1", "H1"]
+    priority: "useful"
+    status: "approved_concept"
+    species_specific: true
+    parameters_to_define:
+      - name: "base_temperature_c"
+        value: null  # TODO: Species-specific literature value
+      - name: "accumulation_start"
+        value: null  # TODO: Define (e.g., Jan 1, or spring onset)
+      - name: "season_reset"
+        value: null  # TODO: Define
+    known_risks:
+      - "Can overfit simple seasonality"
+      - "Reviewer attacks on arbitrary base-temperature choices"
+      - "May add little once temperature extremes already modeled"
+    implementation_status: "not_implemented"
+
+# --- Benchmark Features (Baseline Models Only) ---
+
+benchmark_features:
+
+  - id: "calendar_season"
+    name: "Calendar / week-of-year / season"
+    family: "benchmark"
+    unit: "date features or categories"
+    source: "survey_metadata"
+    purpose: "Captures seasonality without explicit ecology"
+    known_risks: "Can look strong by soaking up autocorrelation"
+
+  - id: "static_zone_grid"
+    name: "Static estuary / management zone / survey grid ID"
+    family: "benchmark"
+    unit: "categorical"
+    source: "survey_design_gis"
+    purpose: "Captures static spatial structure"
+    known_risks: "Encodes design structure rather than process"
+
+  - id: "annual_seasonal_mean"
+    name: "Annual or seasonal mean state"
+    family: "benchmark"
+    unit: "same as underlying state variable"
+    source: "derived_from_state"
+    purpose: "Static environmental summary comparator"
+    known_risks: "Erases event structure by construction"
+
+  - id: "survey_snapshot"
+    name: "Same-day survey snapshot state"
+    family: "benchmark"
+    unit: "same as underlying state variable"
+    source: "derived_from_state"
+    purpose: "Survey-timed snapshot comparator"
+    known_risks: "Ignores prior exposure history"
+
+# --- Variable Alias Map ---
+# Canonical names for variables that may appear under different names in different sources
+
+variable_aliases:
+  bottom_water_temperature:
+    canonical: "bottom_water_temp_c"
+    aliases: ["water_temp", "temp_bottom", "bwt", "wtemp"]
+    unit: "C"
+  bottom_salinity:
+    canonical: "bottom_salinity_psu"
+    aliases: ["salinity", "sal_bottom", "bsal", "psu"]
+    unit: "PSU"
+  bottom_dissolved_oxygen:
+    canonical: "bottom_do_mg_l"
+    aliases: ["do", "dissolved_oxygen", "bdo", "do_bottom"]
+    unit: "mg/L"
+  turbidity:
+    canonical: "turbidity_ntu"
+    aliases: ["turb", "secchi", "kd", "clarity"]
+    unit: "NTU"
+  river_discharge:
+    canonical: "discharge_cfs"
+    aliases: ["streamflow", "flow", "q"]
+    unit: "cfs"
+  precipitation:
+    canonical: "precip_mm"
+    aliases: ["rain", "rainfall", "ppt"]
+    unit: "mm"

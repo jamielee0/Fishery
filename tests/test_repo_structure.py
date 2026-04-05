@@ -7,6 +7,7 @@ PROJECT_ROOT = Path(__file__).parent.parent
 REQUIRED_DIRS = [
     "00_project_brief",
     "01_literature_map",
+    "01_literature_map/trait_tables",
     "02_data_inventory",
     "03_pipeline",
     "04_features",
@@ -17,12 +18,16 @@ REQUIRED_DIRS = [
     "09_manuscript",
     "configs",
     "configs/schemas",
+    "configs/species",
+    "configs/sources",
+    "configs/features",
     "tests",
     "data/raw",
     "data/intermediate",
     "data/processed",
     "docs",
     "scripts",
+    "refs",
 ]
 
 REQUIRED_FILES = [
@@ -35,10 +40,14 @@ REQUIRED_FILES = [
     "decisions_log.md",
     "assumptions_log.md",
     "configs/project_config_template.yaml",
+    "configs/project_config.yaml",
+    "configs/sources/source_registry.yaml",
+    "configs/features/feature_registry.yaml",
     "00_project_brief/brief_v1.md",
     "00_project_brief/hypotheses_v1.md",
     "01_literature_map/lit_matrix.csv",
     "01_literature_map/variable_ontology.md",
+    "01_literature_map/reviewer_notes.md",
     "02_data_inventory/data_inventory.csv",
     "02_data_inventory/access_tracker.md",
     "03_pipeline/README.md",
@@ -48,6 +57,7 @@ REQUIRED_FILES = [
     "07_ablation_robustness/reviewer_attack.md",
     "08_figures/figure_plan.md",
     "09_manuscript/paper_outline.md",
+    "refs/reference_stubs.md",
 ]
 
 

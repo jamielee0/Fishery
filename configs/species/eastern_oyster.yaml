@@ -1,0 +1,68 @@
+# Species Config — Eastern Oyster (Crassostrea virginica)
+# Status: APPROVED focal target (brief_v1.md)
+
+species_id: "eastern_oyster"
+common_name: "Eastern oyster"
+scientific_name: "Crassostrea virginica"
+target_type: "sessile_bivalve"
+
+# Hypothesis roles
+hypothesis_roles: ["H1", "H3"]
+primary_compression_mechanism: "osmotic stress from freshening events"
+
+# Response variable
+response_variable:
+  type: null  # TODO: Approve (PROPOSED: live density or condition metric)
+  source: null  # TODO: Confirm oyster monitoring data source
+  standardization: null  # TODO: Define
+  known_biases:
+    - "Temporal frequency may be sparse (seasonal or annual)"
+    - "Disease confounding (Dermo at high salinity + high temperature)"
+    - "Reef micro-habitat may buffer or amplify exposure"
+
+# Depth policy
+depth_policy: "bottom_required"
+depth_fallback: null
+
+# Healthy ranges — ALL REQUIRE LITERATURE SIGN-OFF (DEC-005)
+healthy_ranges:
+  temperature_c:
+    lower: null  # TODO: Literature value
+    upper: null  # TODO: Literature value
+    life_stage: null
+    evidence: "TODO: Citation needed"
+  salinity_psu:
+    lower: null  # TODO: Literature value (freshening kills)
+    upper: null  # TODO: Literature value — NOTE: upper bound complicated by disease dynamics
+    life_stage: null
+    evidence: "TODO: Citation needed"
+    conflict_note: "High salinity is not unconditionally healthy — Dermo risk increases with high salinity + high temperature"
+  dissolved_oxygen_mg_l:
+    lower: null  # TODO: Literature value
+    upper: null
+    life_stage: null
+    evidence: "TODO: Citation needed"
+
+# Degree-day parameters
+degree_day:
+  relevance: "low"  # Expected minimal improvement (B1)
+  base_temperature_c: null
+  evidence: "TODO: Citation needed"
+
+# Known confounders (deferred from core modeling)
+confounders:
+  - name: "Perkinsus marinus (Dermo)"
+    status: "deferred"
+    notes: "Disease prevalence increases at high salinity and temperature; no confirmed time-aligned NC dataset"
+  - name: "Sedimentation / burial"
+    status: "deferred"
+    notes: "B2 mechanism real but data insufficient for v1"
+
+# Variable relevance by family
+variable_relevance:
+  temperature: "essential"
+  salinity: "essential"  # Primary acute driver
+  dissolved_oxygen: "essential"
+  turbidity: "moderate"  # Burial/sedimentation proxy
+  degree_days: "low"
+  watershed_forcing: "essential"  # Direct H3 test — runoff drives freshening
