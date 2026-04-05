@@ -22,7 +22,7 @@ primary_compression_mechanism: "thermal limits and light limitation"
 
 # Response variable
 response_variable:
-  type: null  # TODO: Approve (PROPOSED: mapped extent or presence/absence)
+  type: null  # PENDING: Approve (likely mapped extent or presence/absence)
   source: null  # TODO: Confirm SAV mapping data source
   standardization: null
   known_biases:

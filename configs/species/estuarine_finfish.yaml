@@ -14,7 +14,7 @@ primary_compression_mechanism: "hypoxia-temperature squeeze"
 
 # Response variable
 response_variable:
-  type: null  # TODO: Approve (PROPOSED: standardized CPUE)
+  type: null  # PENDING: Approve (likely standardized CPUE)
   source: "fishery_independent"  # TODO: Confirm NCDMF data overlap
   standardization: null
   known_biases:

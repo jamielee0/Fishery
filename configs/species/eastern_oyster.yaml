@@ -12,7 +12,7 @@ primary_compression_mechanism: "osmotic stress from freshening events"
 
 # Response variable
 response_variable:
-  type: null  # TODO: Approve (PROPOSED: live density or condition metric)
+  type: null  # PENDING: Approve (likely live density or condition metric)
   source: null  # TODO: Confirm oyster monitoring data source
   standardization: null  # TODO: Define
   known_biases:
@@ -36,7 +36,7 @@ healthy_ranges:
     upper: null  # TODO: Literature value — NOTE: upper bound complicated by disease dynamics
     life_stage: null
     evidence: "TODO: Citation needed"
-    conflict_note: "High salinity is not unconditionally healthy — Dermo risk increases with high salinity + high temperature"
+    caveat: "High salinity is not unconditionally healthy — Dermo risk increases with high salinity + high temperature"
   dissolved_oxygen_mg_l:
     lower: null  # TODO: Literature value
     upper: null

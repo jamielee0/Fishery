@@ -30,7 +30,7 @@ Scientifically real, but continuous spatial data on bottom sedimentation across 
 
 **Recommendation:** Defer B2 from active v1 implementation. Turbidity remains as a light-limitation proxy for SAV only.
 
-**Conflict note:** Day 1 hypotheses_v1.md lists B2 as a backup hypothesis. Deferral is proposed, not yet approved. Human must decide.
+**Resolution:** B2 is marked DEFERRED in hypotheses_v1.md (DEC-011). The hypothesis text is preserved but removed from active v1 implementation.
 
 ### 2. Direct Nutrient Loading
 
