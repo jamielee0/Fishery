@@ -1,0 +1,72 @@
+# Benchmark Registry — Trees to Seas v1
+# Each baseline and the primary model are registered here with their specification.
+# TODO: Implement each model during Day 8–10.
+
+baselines:
+
+  - id: static_zone_climatology
+    name: "Static zone / climatology baseline"
+    description: >
+      Predicts species response using only static spatial zone assignments
+      and long-term climatological means (no within-year dynamics).
+    features: ["zone_id", "climatology_mean_temp", "climatology_mean_salinity"]
+    model_type: "GLM"
+    status: "not_implemented"  # TODO: Day 8
+
+  - id: season_only
+    name: "Season-only / survey-timing baseline"
+    description: >
+      Predicts species response using only season, month, or survey-timing indicators.
+    features: ["month", "season", "survey_period"]
+    model_type: "GLM"
+    status: "not_implemented"  # TODO: Day 8
+
+  - id: annual_mean
+    name: "Annual / monthly mean environmental model"
+    description: >
+      Uses annual or monthly mean environmental covariates (no event-scale dynamics).
+    features: ["annual_mean_temp", "annual_mean_salinity", "annual_mean_do"]
+    model_type: "GLM"
+    status: "not_implemented"  # TODO: Day 8
+
+  - id: temperature_only
+    name: "Temperature-only / degree-day-only model"
+    description: >
+      Uses only temperature and/or degree-day features.
+    features: ["temp_weekly_mean", "degree_days_cumulative"]
+    model_type: "GLM"
+    status: "not_implemented"  # TODO: Day 8
+
+  - id: conventional_glm_gam
+    name: "Conventional GLM/GAM"
+    description: >
+      Full-covariate GLM or GAM without explicit compression features.
+    features: ["temp", "salinity", "do", "turbidity", "season"]
+    model_type: "GAM"
+    status: "not_implemented"  # TODO: Day 8
+
+  - id: ml_baseline
+    name: "Non-mechanistic ML baseline"
+    description: >
+      Gradient-boosted tree or similar using all available features
+      without mechanistic structure. Optional.
+    features: ["all_available"]
+    model_type: "LightGBM"
+    status: "not_implemented"  # TODO: Day 9
+
+primary_model:
+
+  - id: dynamic_habitat_compression
+    name: "Dynamic habitat compression model"
+    description: >
+      Primary model with explicit healthy-range and compression features.
+      Must beat all baselines on held-out data to support the central claim.
+    features: ["all_environmental", "compression_features", "degree_days", "watershed"]
+    model_type: "TBD"  # TODO: Decide during Day 8
+    status: "not_implemented"  # TODO: Day 9–10
+
+evaluation:
+  primary_metric: null  # TODO: Approve (e.g., RMSE, AUC, log-score)
+  validation: "time_blocked"
+  calibration_required: true
+  uncertainty_required: true

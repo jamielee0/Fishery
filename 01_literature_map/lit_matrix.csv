@@ -1,0 +1,8 @@
+citation_key,authors,year,title,journal,relevance,species,variables,geography,notes
+# TODO: Populate during Day 3 literature review
+# Fields: citation_key (e.g., smith2020), authors, year, title, journal,
+#   relevance (healthy_range|degree_day|habitat_compression|baseline|methods|context),
+#   species (blue_crab|oyster|finfish|seagrass|general),
+#   variables (temp|salinity|do|turbidity|degree_day|watershed|multiple),
+#   geography (NC|southeast|general),
+#   notes

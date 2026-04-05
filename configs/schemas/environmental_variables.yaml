@@ -1,0 +1,40 @@
+# Schema: Environmental Variables
+# Each record describes one measured or derived environmental variable.
+
+schema:
+  fields:
+    - name: variable_id
+      type: string
+      description: "Unique identifier (e.g., 'water_temp', 'salinity')"
+      required: true
+
+    - name: display_name
+      type: string
+      required: true
+
+    - name: unit
+      type: string
+      required: true
+      description: "SI or standard unit (e.g., '°C', 'PSU', 'mg/L', 'NTU')"
+
+    - name: source
+      type: string
+      description: "Data source identifier (e.g., 'ferrymon', 'noaa', 'usgs')"
+      required: true
+
+    - name: variable_type
+      type: string
+      enum: [measured, derived, forcing]
+      required: true
+
+    - name: temporal_resolution
+      type: string
+      description: "Native sampling frequency (e.g., '15min', 'hourly', 'daily')"
+
+    - name: expected_range
+      type: [number, number]
+      description: "Plausible range for QA/QC flagging"
+
+    - name: missing_sentinel
+      type: any
+      description: "Value used for missing data in raw source"

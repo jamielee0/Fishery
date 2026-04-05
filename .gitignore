@@ -1,0 +1,46 @@
+# Data (never commit raw or large data)
+data/raw/*
+data/intermediate/*
+data/processed/*
+!data/raw/.gitkeep
+!data/intermediate/.gitkeep
+!data/processed/.gitkeep
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+
+# Environments
+.env
+.venv/
+env/
+venv/
+*.conda
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Outputs (regenerable)
+08_figures/output/
+09_manuscript/output/
+
+# Credentials and secrets
+*.key
+*.pem
+credentials.*

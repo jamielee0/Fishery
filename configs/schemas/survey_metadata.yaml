@@ -1,0 +1,55 @@
+# Schema: Survey Metadata
+# Each record describes one fishery-independent survey program or habitat survey.
+
+schema:
+  fields:
+    - name: survey_id
+      type: string
+      description: "Unique survey program identifier"
+      required: true
+
+    - name: survey_name
+      type: string
+      required: true
+
+    - name: provider
+      type: string
+      description: "Agency or organization (e.g., 'NC DMF', 'NOAA')"
+      required: true
+
+    - name: survey_type
+      type: string
+      enum: [trawl, seine, trap, reef_survey, aerial, acoustic, other]
+      required: true
+
+    - name: target_species
+      type: list
+      description: "List of species_ids targeted or captured"
+
+    - name: gear_type
+      type: string
+
+    - name: temporal_range
+      type: object
+      fields:
+        - name: start_year
+          type: integer
+        - name: end_year
+          type: integer
+          nullable: true
+
+    - name: sampling_frequency
+      type: string
+      description: "e.g., 'monthly', 'seasonal', 'annual'"
+
+    - name: spatial_coverage
+      type: string
+      description: "Description of spatial extent"
+
+    - name: effort_variable
+      type: string
+      description: "How effort is measured (e.g., 'tow_minutes', 'trap_days')"
+
+    - name: known_biases
+      type: string
+      description: "Known gear selectivity, timing, or effort biases"

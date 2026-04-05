@@ -1,0 +1,48 @@
+# Schema: Station Metadata
+# Each record describes one monitoring station or sampling location.
+
+schema:
+  fields:
+    - name: station_id
+      type: string
+      description: "Unique station identifier from source provider"
+      required: true
+
+    - name: station_name
+      type: string
+      required: true
+
+    - name: source
+      type: string
+      description: "Data provider (e.g., 'ferrymon', 'noaa', 'usgs')"
+      required: true
+
+    - name: latitude
+      type: number
+      required: true
+
+    - name: longitude
+      type: number
+      required: true
+
+    - name: estuary
+      type: string
+      description: "Estuary or water body name"
+
+    - name: variables_measured
+      type: list
+      description: "List of variable_ids measured at this station"
+
+    - name: active_start
+      type: date
+      description: "First date of data availability"
+
+    - name: active_end
+      type: date
+      description: "Last date of data availability (null if still active)"
+      nullable: true
+
+    - name: depth_m
+      type: number
+      nullable: true
+      description: "Sensor depth or station depth in meters"

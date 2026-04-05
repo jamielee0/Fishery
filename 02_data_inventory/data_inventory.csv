@@ -1,0 +1,11 @@
+source_name,provider,access_method,url_or_path,variables,temporal_range,temporal_resolution,spatial_coverage,spatial_resolution,format,access_status,notes
+# TODO: Populate during Day 2 data inventory
+# Each row = one data source. Fill in actual values after confirming access.
+FerryMon,,API/download,,temp;salinity;do;turbidity;pH,,,,,,TODO: Confirm URL and access
+NOAA_stations,,API,,temp;salinity;do;water_level,,,,,,TODO: Identify NC estuarine stations
+USGS_stations,,API,,discharge;temp;turbidity,,,,,,TODO: Identify relevant gauges
+Ty_GitHub,,GitHub_repo,,,,,,,,TODO: Locate repo and catalog
+Fishery_independent_surveys,,,,catch;effort;species,,,,,,TODO: Identify NC DMF data
+Oyster_layers,,download,,reef_extent;condition,,,,,,TODO: Source and format
+Seagrass_layers,,download,,extent;density,,,,,,TODO: Source and vintage
+Watershed_landuse,,download,,impervious;landcover,,,,,,TODO: NLCD or equivalent

@@ -1,0 +1,44 @@
+# Schema: Species / Focal Target
+# Each record describes one focal species or habitat indicator.
+
+schema:
+  fields:
+    - name: species_id
+      type: string
+      description: "Unique identifier (e.g., 'blue_crab', 'oyster')"
+      required: true
+
+    - name: common_name
+      type: string
+      required: true
+
+    - name: scientific_name
+      type: string
+      required: true
+
+    - name: target_type
+      type: string
+      enum: [mobile_crustacean, sessile_bivalve, estuarine_finfish, habitat_indicator]
+      required: true
+
+    - name: response_variable
+      type: string
+      description: "Primary response variable (e.g., 'cpue', 'occurrence', 'extent')"
+      required: true  # TODO: Approve per species
+
+    - name: healthy_ranges
+      type: object
+      description: "Species-specific environmental thresholds"
+      fields:
+        - name: temperature_c
+          type: [number, number]  # [min, max]
+        - name: salinity_psu
+          type: [number, number]
+        - name: dissolved_oxygen_mg_l
+          type: [number, null]    # [min, no max]
+        - name: turbidity_ntu
+          type: [null, number]    # [no min, max]
+
+    - name: degree_day_base_c
+      type: number
+      nullable: true

@@ -1,0 +1,142 @@
+# ============================================================================
+# Trees to Seas – Project Configuration Template
+# ============================================================================
+# Copy this file to configs/project_config.yaml and fill in approved values.
+# Do NOT commit project_config.yaml with real credentials or local paths.
+# ============================================================================
+
+# --- Geography ---
+geography:
+  name: "North Carolina estuarine systems"
+  region: "NC"
+  # TODO: Approve exact sub-systems (all NC coastal estuaries vs. pilot subset)
+  sub_systems: []  # e.g., ["Pamlico Sound", "Albemarle Sound", "Neuse River Estuary"]
+  coordinate_bounds:
+    lat_min: null  # TODO: Set after geography approval
+    lat_max: null
+    lon_min: null
+    lon_max: null
+  crs: "EPSG:4326"
+
+# --- Focal Species & Targets ---
+focal_species:
+  - name: "Blue crab"
+    scientific_name: "Callinectes sapidus"
+    type: "mobile_crustacean"
+    response_variable: null  # TODO: Approve (e.g., survey CPUE, occurrence)
+    healthy_ranges:
+      temperature_c: [15.0, 30.0]   # TODO: Verify from literature
+      salinity_psu: [5.0, 35.0]     # TODO: Verify from literature
+      dissolved_oxygen_mg_l: [3.0, null]
+    degree_day_base_c: 10.0          # TODO: Confirm taxon-specific base
+
+  - name: "Eastern oyster"
+    scientific_name: "Crassostrea virginica"
+    type: "sessile_bivalve"
+    response_variable: null  # TODO: Approve (e.g., condition index, reef extent)
+    healthy_ranges:
+      temperature_c: [10.0, 32.0]
+      salinity_psu: [5.0, 30.0]
+      dissolved_oxygen_mg_l: [2.0, null]
+    degree_day_base_c: null
+
+  - name: "TBD estuarine finfish"
+    scientific_name: null  # TODO: Select by data overlap
+    type: "estuarine_finfish"
+    response_variable: null
+    healthy_ranges:
+      temperature_c: [null, null]
+      salinity_psu: [null, null]
+      dissolved_oxygen_mg_l: [null, null]
+    degree_day_base_c: null
+
+  - name: "Seagrass"
+    scientific_name: null  # TODO: Confirm indicator (Zostera marina, Halodule wrightii, etc.)
+    type: "habitat_indicator"
+    response_variable: null  # TODO: Approve (e.g., aerial extent, density)
+    healthy_ranges:
+      temperature_c: [null, null]
+      salinity_psu: [null, null]
+      turbidity_ntu: [null, null]
+      light_par: [null, null]
+
+# --- Date Ranges ---
+date_ranges:
+  # TODO: Approve minimum overlap window after data inventory
+  nominal_start: null   # e.g., "2005-01-01"
+  nominal_end: null     # e.g., "2023-12-31"
+  overlap_start: null   # Actual overlap start across all sources
+  overlap_end: null
+  notes: "Use strongest overlap window, not longest wish list."
+
+# --- Data Source Paths ---
+source_paths:
+  ferrymon: null            # TODO: Path or URL after data access confirmed
+  noaa_stations: null
+  usgs_stations: null
+  ty_github: null           # TODO: Ty's GitHub environmental feeds
+  fishery_independent: null # Fishery-independent survey data
+  oyster_layers: null
+  seagrass_layers: null
+  habitat_layers: null
+  watershed_landuse: null
+  disturbance: null
+
+# --- Analysis Unit ---
+analysis_unit:
+  preferred: "estuary-cell-week"
+  fallback: "estuary-week"
+  spatial_resolution: null  # TODO: Define cell size if estuary-cell-week
+  temporal_resolution: "weekly"
+
+# --- Validation Split Strategy ---
+validation:
+  strategy: "time_blocked"
+  # TODO: Define held-out years after overlap window is approved
+  held_out_years: []  # e.g., [2021, 2022, 2023]
+  secondary_strategy: "estuary_holdout"  # If sample size permits
+  notes: "Do not rely on random cross-validation alone."
+
+# --- Benchmark Definitions ---
+benchmarks:
+  baselines:
+    - name: "static_zone_climatology"
+      description: "Static zone or climatology baseline"
+    - name: "season_only"
+      description: "Season-only or survey-timing baseline"
+    - name: "annual_mean"
+      description: "Annual or monthly mean environmental model"
+    - name: "temperature_only"
+      description: "Temperature-only and/or degree-day-only model"
+    - name: "conventional_glm_gam"
+      description: "Conventional GLM/GAM"
+    - name: "ml_baseline"
+      description: "One strong non-mechanistic ML baseline (optional)"
+  primary_model:
+    name: "dynamic_habitat_compression"
+    description: "Dynamic habitat model with explicit healthy-range and compression features"
+  primary_metric: null  # TODO: Approve (e.g., RMSE, AUC, log-score)
+  success_rule: >
+    Dynamic habitat model must beat best static baseline on held-out data,
+    remain reasonably calibrated, and retain advantage under key ablations.
+
+# --- Habitat Compression Definition ---
+habitat_compression:
+  # TODO: Approve operational definitions for each target
+  metric_type: "fraction_outside_healthy_range"
+  consecutive_days_threshold: null  # k days for event definition
+  spatial_unit: null                # area unit for spatial compression
+  notes: "Must be defined in advance, not labeled from model outputs."
+
+# --- Ablation Plan ---
+ablations:
+  features_to_remove_one_at_a_time:
+    - "temperature"
+    - "salinity"
+    - "dissolved_oxygen"
+    - "turbidity_light"
+    - "degree_days"
+    - "watershed_forcing"
+    - "habitat_layers"
+  additional_comparisons:
+    - "event_compression_vs_mean_only"
