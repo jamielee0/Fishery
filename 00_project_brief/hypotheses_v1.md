@@ -1,5 +1,11 @@
 # Hypotheses — Trees to Seas v1
 
+> **This repo is scaffold and configuration only. No pipeline code, no model code, no data, and no results exist yet. Nothing here is runnable science.**
+
+## Focal Targets — Locked
+
+Blue crab (*Callinectes sapidus*), Eastern oyster (*Crassostrea virginica*), Southern Flounder (*Paralichthys lethostigma*), and Seagrass/SAV (species to be selected at Day 3).
+
 ## Primary Hypotheses
 
 ### H1: Dynamic habitat models outperform static summaries
@@ -27,11 +33,13 @@ Models that route rainfall, runoff, land-use, and disturbance variables through 
 
 ### B1: Degree-days are taxon- and life-stage-specific rather than universally useful
 
-Degree-day features will improve prediction for blue crab and the finfish target more than for oyster or seagrass, and may add little once temperature extremes are already modeled.
+Degree-day features will improve prediction for blue crab and Southern Flounder more than for oyster or seagrass, and may add little once temperature extremes are already modeled.
 
-### B2: Sediment/disturbance proxies matter most for benthic and habitat-forming targets
+### B2: Sediment/disturbance proxies matter most for benthic and habitat-forming targets (DEFERRED)
 
 Adding turbidity, runoff, land-disturbance, and any direct burial/sediment proxies will improve risk prediction for oyster and seagrass more than for the mobile targets.
+
+**Deferral note (DEC-011):** B2 is deferred from active v1 implementation because continuous spatial data on dynamic sediment deposition does not exist across NC estuaries at useful temporal resolution. Turbidity remains in the variable set as a light-limitation proxy for SAV. B2 may be revived if Day 3 inventory reveals a usable dataset.
 
 ## Success Criterion
 

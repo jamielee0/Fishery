@@ -1,12 +1,12 @@
 # Species Config — Seagrass / SAV (Habitat Indicator)
-# Status: PROPOSED — role approved, species not yet confirmed
+# Status: Role LOCKED — exact species pending Day 3 data availability review
 # Candidate: Zostera marina (eelgrass) or Halodule wrightii (shoal grass)
 
 species_id: "seagrass_sav"
 common_name: "Seagrass / SAV"
 scientific_name: null  # TODO: Approve species
 target_type: "habitat_indicator"
-approval_status: "PROPOSED"
+approval_status: "LOCKED"  # Role locked; species is a Day 3 decision
 species_candidates:
   - name: "Zostera marina"
     common: "eelgrass"

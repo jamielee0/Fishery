@@ -1,15 +1,12 @@
 # Species Config — Estuarine Finfish
-# Status: PROPOSED — species not yet approved
-# Candidate: Southern Flounder (Paralichthys lethostigma)
-# Selection requires data overlap confirmation during Day 3
+# Status: LOCKED — Southern Flounder approved as estuarine finfish target
 
 species_id: "estuarine_finfish"
-common_name: "Southern Flounder"  # PROPOSED, not approved
-scientific_name: "Paralichthys lethostigma"  # PROPOSED, not approved
+common_name: "Southern Flounder"
+scientific_name: "Paralichthys lethostigma"
 target_type: "estuarine_finfish"
-approval_status: "PROPOSED"
+approval_status: "LOCKED"
 selection_rationale: "Benthic, heavily surveyed by NCDMF, textbook hypoxia avoidance behavior"
-approval_gate: "Day 3 data overlap confirmation required"
 
 # Hypothesis roles
 hypothesis_roles: ["H1", "H2"]

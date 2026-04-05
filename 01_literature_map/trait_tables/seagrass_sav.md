@@ -1,12 +1,12 @@
 # Trait Table — Seagrass / SAV (Habitat Indicator)
 
 **Target type:** Habitat indicator
-**Status in v1:** Confirmed role (brief_v1.md); species pending confirmation
+**Status in v1:** Role locked; exact species pending Day 3 data review
 **Primary hypothesis role:** H1 target
 **Candidate species:** *Zostera marina* (eelgrass) — at southern thermal limit in NC; or *Halodule wrightii* (shoal grass) — more thermally tolerant
 **Species recommendation:** Reviewer notes suggest *Zostera marina* for strongest thermal signal, but species choice depends on data availability and geographic match
 
-**CONFLICT NOTE:** Day 1 brief_v1.md says "one habitat indicator such as seagrass." The specific species is not yet approved. *Zostera marina* provides the cleanest thermal-limit story, but *Halodule wrightii* may have better spatial coverage in NC. Human must decide.
+**Open decision:** The exact species (*Zostera marina* vs. *Halodule wrightii*) is a Day 3 decision because thresholds differ dramatically between candidates.
 
 ---
 

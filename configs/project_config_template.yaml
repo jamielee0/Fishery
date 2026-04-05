@@ -40,8 +40,8 @@ focal_species:
       dissolved_oxygen_mg_l: [2.0, null]
     degree_day_base_c: null
 
-  - name: "TBD estuarine finfish"
-    scientific_name: null  # TODO: Select by data overlap
+  - name: "Southern Flounder"
+    scientific_name: "Paralichthys lethostigma"
     type: "estuarine_finfish"
     response_variable: null
     healthy_ranges:
@@ -50,8 +50,8 @@ focal_species:
       dissolved_oxygen_mg_l: [null, null]
     degree_day_base_c: null
 
-  - name: "Seagrass"
-    scientific_name: null  # TODO: Confirm indicator (Zostera marina, Halodule wrightii, etc.)
+  - name: "Seagrass / SAV"
+    scientific_name: null  # PENDING: Day 3 species selection (Zostera marina vs. Halodule wrightii)
     type: "habitat_indicator"
     response_variable: null  # TODO: Approve (e.g., aerial extent, density)
     healthy_ranges:

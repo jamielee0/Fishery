@@ -1,5 +1,7 @@
 # Project Brief — Trees to Seas v1
 
+> **This repo is scaffold and configuration only. No pipeline code, no model code, no data, and no results exist yet. Nothing here is runnable science.**
+
 ## Aim
 
 Build a publication-oriented North Carolina proof-of-concept that tests whether species-specific habitat compression, estimated from dynamic estuarine conditions, can serve as a better management signal than static annual or survey-timed summaries.
@@ -7,6 +9,17 @@ Build a publication-oriented North Carolina proof-of-concept that tests whether 
 ## Pipeline Blueprint
 
 Watershed/weather forcing -> Environmental state -> Species response -> Habitat-days/compression outputs
+
+## Focal Targets — Locked
+
+| Target | Scientific Name | Type |
+|---|---|---|
+| Blue crab | *Callinectes sapidus* | Mobile crustacean |
+| Eastern oyster | *Crassostrea virginica* | Sessile bivalve |
+| Southern Flounder | *Paralichthys lethostigma* | Estuarine finfish |
+| Seagrass / SAV | Species TBD at Day 3 | Habitat indicator |
+
+Southern Flounder is the approved estuarine finfish target, selected for its benthic ecology, strong NCDMF survey coverage, and textbook hypoxia-avoidance behavior. The SAV role is locked; the exact species (*Zostera marina* vs. *Halodule wrightii*) depends on NC data availability and will be decided at Day 3 because thresholds differ dramatically between candidates.
 
 ## Data Sources
 
@@ -29,7 +42,7 @@ A benchmarked NC study that maps:
 - Great Lakes used only as introduction context
 - No whole-USA model in v1
 - One central paper claim only
-- Focal set: blue crab, eastern oyster, one estuarine finfish (TBD), one habitat indicator (seagrass TBD)
+- Focal set: blue crab, eastern oyster, Southern Flounder, and seagrass/SAV
 - Observational, benchmarked modeling paper — not a management platform
 
 ## What Not To Do in v1

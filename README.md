@@ -1,5 +1,7 @@
 # Trees to Seas
 
+> **This repo is scaffold and configuration only. No pipeline code, no model code, no data, and no results exist yet. Nothing here is runnable science.**
+
 **Dynamic estuarine habitat and fishery risk modeling — North Carolina proof-of-concept (v1)**
 
 ## Research Question
@@ -10,14 +12,16 @@
 
 Species-specific habitat compression estimated from dynamic water conditions provides a better out-of-sample and forecast-ready management signal than static annual or survey-timed summaries in North Carolina estuarine systems.
 
-## Focal Targets (v1)
+## Focal Targets (v1) — Locked
 
-| Target | Type | Status |
-|---|---|---|
-| Blue crab (*Callinectes sapidus*) | Mobile crustacean | Confirmed |
-| Eastern oyster (*Crassostrea virginica*) | Sessile bivalve | Confirmed |
-| TBD estuarine finfish | Finfish | Pending data overlap review |
-| Seagrass (species TBD) | Habitat indicator | Pending confirmation |
+| Target | Scientific Name | Type | Primary Mechanism |
+|---|---|---|---|
+| Blue crab | *Callinectes sapidus* | Mobile crustacean | Hypoxia-temperature squeeze |
+| Eastern oyster | *Crassostrea virginica* | Sessile bivalve | Osmotic stress from freshening |
+| Southern Flounder | *Paralichthys lethostigma* | Estuarine finfish | Hypoxia-temperature squeeze |
+| Seagrass / SAV | Species TBD at Day 3 | Habitat indicator | Thermal limits and light limitation |
+
+Southern Flounder is the approved finfish target. SAV role is locked; the exact species (*Zostera marina* vs. *Halodule wrightii*) is a Day 3 decision because thresholds differ dramatically between candidates.
 
 ## Key Environmental Variables
 
@@ -27,7 +31,7 @@ Temperature, salinity, dissolved oxygen, turbidity/light proxies, degree-days, a
 
 ```
 00_project_brief/       Project brief, hypotheses, scope lock
-01_literature_map/      Literature matrix, variable ontology
+01_literature_map/      Literature matrix, variable ontology, trait tables
 02_data_inventory/      Data inventory, access tracking
 03_pipeline/            ETL pipeline code and documentation
 04_features/            Feature engineering and catalog
@@ -36,11 +40,12 @@ Temperature, salinity, dissolved oxygen, turbidity/light proxies, degree-days, a
 07_ablation_robustness/ Ablation studies and robustness checks
 08_figures/             Figure plan and generated outputs
 09_manuscript/          Paper outline and drafts
-configs/                Project configuration templates
+configs/                Project configuration and species/source/feature registries
 tests/                  Test suite
 data/                   Raw / intermediate / processed (not committed)
 docs/                   Developer and onboarding documentation
 scripts/                Utility and runner scripts
+refs/                   Literature reference stubs
 ```
 
 ## Quick Start
@@ -83,13 +88,6 @@ make test
 - No fabricated data. No fake results.
 - Conservative claim language: predictive, associative, forecast-ready — not causal.
 
-## Day 1 Definition of Done
+## What This Repo Contains Today
 
-- [x] Repo tree created with all sprint folders
-- [x] Config template with geography, species, date ranges, sources, validation, benchmarks
-- [x] Tests scaffolding in place
-- [x] Issue board with Day 2–3 tasks
-- [x] Decisions log, assumptions log initialized
-- [x] Brief and hypotheses committed
-- [x] README sufficient for next contributor to orient without questions
-- [x] No fabricated data or results anywhere in repo
+Scaffold only: directory structure, configuration templates, trait tables, variable ontology, reviewer notes, reference stubs, and test suite. All numeric thresholds are null pending literature sign-off (DEC-005). All data source paths are null pending Day 3 inventory. No code runs a model. No code fetches data.

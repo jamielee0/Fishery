@@ -1,99 +1,103 @@
 # ============================================================================
-# Trees to Seas v1 — Working Project Configuration (Day 2)
+# Trees to Seas v1 — Working Project Configuration
 # ============================================================================
-# This file extends project_config_template.yaml with Day 2 science structure.
-# Values marked TODO require human approval or Day 3 data inventory results.
-# Values marked PROPOSED are recommended but not yet approved.
-# Values marked APPROVED are confirmed from Day 1 brief or human sign-off.
+# SCAFFOLD ONLY. No pipeline code, no model code, no data, and no results
+# exist yet. Nothing here is runnable science.
+#
+# Status tags on remaining open items:
+#   LOCKED    — approved and not subject to change without a new decision
+#   PENDING   — requires Day 3 data inventory or human approval to fill in
+#   DEFERRED  — excluded from v1 unless new evidence surfaces
 # ============================================================================
 
-# --- Geography ---
+# --- Geography (LOCKED: DEC-001) ---
 geography:
-  name: "North Carolina estuarine systems"  # APPROVED (DEC-001)
+  name: "North Carolina estuarine systems"
   region: "NC"
-  sub_systems: []  # TODO: Approve exact sub-systems after Day 3 data overlap audit
-  # PROPOSED pilot sub-systems based on reviewer notes:
-  # - Neuse River Estuary (strongest hypoxia-compression literature)
-  # - Pamlico Sound (large, multi-species overlap)
-  # - Albemarle Sound (potential estuary holdout if sample size permits)
+  sub_systems: []  # PENDING: Approve exact sub-systems after Day 3 data overlap audit
   coordinate_bounds:
-    lat_min: null  # TODO: Set after geography approval
+    lat_min: null  # PENDING: Set after overlap audit
     lat_max: null
     lon_min: null
     lon_max: null
   crs: "EPSG:4326"
 
-# --- Focal Species & Targets ---
+# --- Focal Species & Targets (LOCKED) ---
 focal_species:
 
   - name: "Blue crab"
     scientific_name: "Callinectes sapidus"
     type: "mobile_crustacean"
-    status: "APPROVED"  # Confirmed in brief_v1.md
-    response_variable: null  # TODO: Approve (PROPOSED: standardized CPUE from fishery-independent survey)
+    status: "LOCKED"
+    response_variable: null  # PENDING: Approve (likely standardized CPUE from fishery-independent survey)
     hypothesis_roles: ["H1", "H2"]
     trait_table: "01_literature_map/trait_tables/blue_crab.md"
     healthy_ranges:
-      # TODO: All thresholds require literature sign-off before feature engineering (DEC-005)
-      temperature_c: [null, null]
-      salinity_psu: [null, null]
-      dissolved_oxygen_mg_l: [null, null]  # PROPOSED lower bound: ~2.0-3.0 mg/L (needs literature)
-    degree_day_base_c: null  # TODO: Literature search needed
+      # All thresholds require literature sign-off before feature engineering (DEC-005)
+      temperature_c: [null, null]    # PENDING: literature
+      salinity_psu: [null, null]     # PENDING: literature
+      dissolved_oxygen_mg_l: [null, null]  # PENDING: literature (commonly cited ~2.0-3.0 mg/L)
+    degree_day_base_c: null  # PENDING: literature
     primary_compression_mechanism: "hypoxia-temperature squeeze"
-    depth_policy: "bottom_required"  # Bottom measurements required for benthic taxon
+    depth_policy: "bottom_required"
 
   - name: "Eastern oyster"
     scientific_name: "Crassostrea virginica"
     type: "sessile_bivalve"
-    status: "APPROVED"  # Confirmed in brief_v1.md
-    response_variable: null  # TODO: Approve (PROPOSED: live density or condition metric)
+    status: "LOCKED"
+    response_variable: null  # PENDING: Approve (likely live density or condition metric)
     hypothesis_roles: ["H1", "H3"]
     trait_table: "01_literature_map/trait_tables/eastern_oyster.md"
     healthy_ranges:
-      temperature_c: [null, null]
-      salinity_psu: [null, null]  # NOTE: Upper bound complicated by disease dynamics (Dermo)
-      dissolved_oxygen_mg_l: [null, null]
+      temperature_c: [null, null]    # PENDING: literature
+      salinity_psu: [null, null]     # PENDING: literature — upper bound complicated by Dermo disease
+      dissolved_oxygen_mg_l: [null, null]  # PENDING: literature
     degree_day_base_c: null  # Expected low relevance
     primary_compression_mechanism: "osmotic stress from freshening"
     depth_policy: "bottom_required"
     known_confounders:
       - "Perkinsus marinus (Dermo) disease at high salinity + high temperature"
-      - "Sedimentation/burial (B2 deferred)"
+      - "Sedimentation/burial (DEFERRED with B2)"
 
   - name: "Southern Flounder"
     scientific_name: "Paralichthys lethostigma"
     type: "estuarine_finfish"
-    status: "PROPOSED"  # NOT YET APPROVED — requires data overlap confirmation
+    status: "LOCKED"
     selection_rationale: "Benthic, heavily surveyed by NCDMF, textbook hypoxia avoidance"
-    response_variable: null  # TODO: Approve
+    response_variable: null  # PENDING: Approve
     hypothesis_roles: ["H1", "H2"]
     trait_table: "01_literature_map/trait_tables/estuarine_finfish.md"
     healthy_ranges:
-      temperature_c: [null, null]
-      salinity_psu: [null, null]
-      dissolved_oxygen_mg_l: [null, null]
-    degree_day_base_c: null  # TODO: Literature search needed
+      temperature_c: [null, null]    # PENDING: literature
+      salinity_psu: [null, null]     # PENDING: literature
+      dissolved_oxygen_mg_l: [null, null]  # PENDING: literature
+    degree_day_base_c: null  # PENDING: literature
     primary_compression_mechanism: "hypoxia-temperature squeeze"
     depth_policy: "bottom_required"
 
   - name: "Seagrass / SAV"
-    scientific_name: null  # TODO: Approve species (PROPOSED: Zostera marina for thermal-limit story)
+    scientific_name: null  # PENDING: Day 3 species selection (Zostera marina vs. Halodule wrightii)
     type: "habitat_indicator"
-    status: "PROPOSED"  # Role approved, species not yet confirmed
-    response_variable: null  # TODO: Approve (PROPOSED: mapped extent or presence/absence)
+    status: "LOCKED"  # Role locked; exact species is a Day 3 decision
+    species_decision_note: >
+      Zostera marina gives the strongest thermal-limit story but may have limited
+      NC coverage. Halodule wrightii is more thermally tolerant with potentially
+      better coverage. Thresholds differ dramatically — species choice must be made
+      before literature thresholds are set.
+    response_variable: null  # PENDING: Approve (likely mapped extent or presence/absence)
     hypothesis_roles: ["H1"]
     trait_table: "01_literature_map/trait_tables/seagrass_sav.md"
     healthy_ranges:
-      temperature_c: [null, null]  # Zostera ~25C upper if selected
-      salinity_psu: [null, null]
-      turbidity_ntu: [null, null]
-      light_par: [null, null]
+      temperature_c: [null, null]    # PENDING: literature (species-dependent)
+      salinity_psu: [null, null]     # PENDING: literature
+      turbidity_ntu: [null, null]    # PENDING: literature
+      light_par: [null, null]        # PENDING: literature
     degree_day_base_c: null  # Expected low relevance
     primary_compression_mechanism: "thermal limits and light limitation"
     depth_policy: "shallow_benthic"
     temporal_resolution_concern: "SAV data may be annual or episodic — see ASM-005"
 
-# --- Variable Classification ---
+# --- Variable Classification (LOCKED: DEC-006) ---
 # Strict staging per ontology — do not mix families in kitchen-sink models
 variable_families:
   forcing:
@@ -182,15 +186,15 @@ rejected_variables:
 
 # --- Date Ranges ---
 date_ranges:
-  nominal_start: null   # TODO: Day 3 data inventory
+  nominal_start: null   # PENDING: Day 3 data inventory
   nominal_end: null
-  overlap_start: null   # TODO: Day 3 overlap audit
+  overlap_start: null   # PENDING: Day 3 overlap audit
   overlap_end: null
   notes: "Use strongest overlap window, not longest wish list (brief_v1.md)."
 
 # --- Data Source Paths ---
 source_paths:
-  # All paths are null until Day 3 data inventory confirms access
+  # All paths null until Day 3 data inventory confirms access
   ferrymon: null
   noaa_stations: null
   usgs_stations: null
@@ -205,33 +209,30 @@ source_paths:
 analysis_unit:
   preferred: "estuary-cell-week"
   fallback: "estuary-week"
-  spatial_resolution: null  # TODO: Define cell size
-  temporal_resolution: "weekly"  # PROPOSED; may move to daily if data supports (ASM-004)
+  spatial_resolution: null  # PENDING: Define cell size
+  temporal_resolution: "weekly"  # PENDING: may move to daily if data supports (ASM-004)
   notes: "Sub-weekly resolution may be needed for DO crash events"
 
-# --- Habitat Compression Definition ---
+# --- Habitat Compression Definition (LOCKED: DEC-008) ---
 habitat_compression:
   v1_default: "temporal_station_based"
-  # PROPOSED: Temporal squeeze at stations/cells as v1 default
-  # Spatial safe-area interpolation only as secondary extension
-  # Human must approve this choice before Day 3
   temporal_definition:
     formula: "CompressionTemporal = 1 - HabitatDays / |W|"
     additional_metric: "MaxConsecutiveUnsafeDays"
-    lookback_window: null  # TODO: Approve window length (days)
+    lookback_window: null  # PENDING: Approve window length (days)
   spatial_extension:
-    status: "deferred"
+    status: "DEFERRED"
     formula: "CompressionSpatial = 1 - sum(a_i * Healthy_i) / sum(a_i)"
     notes: "Only if Day 3 shows sufficient spatial density and bottom-state coverage"
   missing_data_rule: "Feature window computable only if minimum temporal coverage met; no silent gap filling"
   response_alignment_rule: "Every response observation must carry exact preceding exposure window, depth policy, and station/cell mapping"
 
-# --- Validation Split Strategy ---
+# --- Validation Split Strategy (LOCKED: DEC-003) ---
 validation:
-  strategy: "time_blocked"  # APPROVED (DEC-003)
-  held_out_years: []  # TODO: Define after overlap window approved
+  strategy: "time_blocked"
+  held_out_years: []  # PENDING: Define after overlap window approved
   secondary_strategy: "estuary_holdout"
-  notes: "Do not rely on random cross-validation alone (DEC-003)."
+  notes: "Do not rely on random cross-validation alone."
 
 # --- Benchmark Definitions ---
 benchmarks:
@@ -251,7 +252,7 @@ benchmarks:
   primary_model:
     name: "dynamic_habitat_compression"
     description: "Dynamic habitat model with explicit healthy-range and compression features"
-  primary_metric: null  # TODO: Approve
+  primary_metric: null  # PENDING: Approve
   success_rule: >
     Dynamic habitat model must beat best static baseline on held-out data,
     remain reasonably calibrated, and retain advantage under key ablations.

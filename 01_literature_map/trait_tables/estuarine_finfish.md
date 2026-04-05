@@ -1,12 +1,9 @@
 # Trait Table — Estuarine Finfish (Candidate: Southern Flounder, *Paralichthys lethostigma*)
 
 **Target type:** Estuarine finfish
-**Status in v1:** Pending approval — species selection requires data overlap confirmation
+**Status in v1:** Locked — approved as the v1 estuarine finfish target
 **Primary hypothesis role:** H1 target, H2 target
-**Candidate recommendation:** Southern Flounder (Gemini Day 2 reviewer recommendation)
 **Selection rationale:** Benthic, heavily surveyed by NCDMF, hypoxia-driven avoidance behavior is a textbook example of habitat compression
-
-**CONFLICT NOTE:** Day 1 brief_v1.md says "one estuarine finfish selected by data overlap." The Day 2 reviewer recommends Southern Flounder but this is a **proposed** selection, not approved. Human must confirm based on actual data overlap (Day 3 inventory).
 
 ---
 
