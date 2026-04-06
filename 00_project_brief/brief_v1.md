@@ -1,5 +1,7 @@
 # Project Brief — Trees to Seas v1
 
+> Pamlico Sound and Neuse River Estuary fisheries depend not just on harvest rules but on when and where estuarine habitat is usable, and that habitat shifts with temperature, salinity, dissolved oxygen, turbidity, flow, and watershed inputs.
+
 > **This repo is scaffold and configuration only. No pipeline code, no model code, no data, and no results exist yet. Nothing here is runnable science.**
 
 ## Aim
