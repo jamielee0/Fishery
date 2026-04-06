@@ -114,6 +114,26 @@ Record every architectural, scientific, or scope decision here. Include date, de
 
 ---
 
+## DEC-012: Pilot geography locked to Pamlico Sound and Neuse River Estuary
+
+**Date:** 2026-04-06 (Day 2)
+**Decision:** v1 pilot geography is Pamlico Sound and the Neuse River Estuary, not all NC coastal estuaries. This is the canonical proof-of-concept area.
+**Rationale:** Pamlico Sound has the strongest data density (Program 195 since 1987, FerryMon, ModMon, AVPs, NERRS) and the best-documented hypoxia-compression literature. Neuse River Estuary is the classic hypoxia study site. Broader NC coverage would dilute overlap and weaken the proof-of-concept.
+**Approved by:** Day 2 consistency pass
+**Dissent:** None. Albemarle Sound may serve as estuary holdout if sample size permits.
+
+---
+
+## DEC-013: SAV is an annual/episodic indicator, not an event-scale target
+
+**Date:** 2026-04-06 (Day 2)
+**Decision:** SAV/seagrass is retained as a habitat indicator but explicitly at annual or episodic temporal resolution. It is not an event-scale target on par with the three mobile/sessile species. Event-scale attribution of compression to SAV loss is unlikely to be defensible in v1.
+**Rationale:** Official NC SAV monitoring relies on infrequent multi-year mapping products. ASM-005 flags this risk. Treating SAV as if it has the same temporal resolution as survey CPUE would be misleading.
+**Approved by:** Day 2 consistency pass
+**Dissent:** None. If Day 3 reveals higher-frequency SAV data, the resolution can be upgraded.
+
+---
+
 <!-- TODO: Add Day 3+ decisions as they are approved -->
 <!-- Template:
 ## DEC-NNN: Title

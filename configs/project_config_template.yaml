@@ -23,26 +23,26 @@ focal_species:
   - name: "Blue crab"
     scientific_name: "Callinectes sapidus"
     type: "mobile_crustacean"
-    response_variable: null  # TODO: Approve (e.g., survey CPUE, occurrence)
+    response_variable: null  # PENDING: Approve (e.g., survey CPUE, occurrence)
     healthy_ranges:
-      temperature_c: [15.0, 30.0]   # TODO: Verify from literature
-      salinity_psu: [5.0, 35.0]     # TODO: Verify from literature
-      dissolved_oxygen_mg_l: [3.0, null]
-    degree_day_base_c: 10.0          # TODO: Confirm taxon-specific base
+      temperature_c: [null, null]    # PENDING: Literature sign-off required (DEC-005)
+      salinity_psu: [null, null]     # PENDING: Literature sign-off required (DEC-005)
+      dissolved_oxygen_mg_l: [null, null]  # PENDING: Literature sign-off required (DEC-005)
+    degree_day_base_c: null          # PENDING: Literature sign-off required (DEC-005)
 
   - name: "Eastern oyster"
     scientific_name: "Crassostrea virginica"
     type: "sessile_bivalve"
-    response_variable: null  # TODO: Approve (e.g., condition index, reef extent)
+    response_variable: null  # PENDING: Approve (e.g., condition index, reef extent)
     healthy_ranges:
-      temperature_c: [10.0, 32.0]
-      salinity_psu: [5.0, 30.0]
-      dissolved_oxygen_mg_l: [2.0, null]
+      temperature_c: [null, null]    # PENDING: Literature sign-off required (DEC-005)
+      salinity_psu: [null, null]     # PENDING: Literature sign-off required (DEC-005)
+      dissolved_oxygen_mg_l: [null, null]  # PENDING: Literature sign-off required (DEC-005)
     degree_day_base_c: null
 
   - name: "Southern Flounder"
     scientific_name: "Paralichthys lethostigma"
-    type: "estuarine_finfish"
+    type: "southern_flounder"
     response_variable: null
     healthy_ranges:
       temperature_c: [null, null]

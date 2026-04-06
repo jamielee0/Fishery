@@ -10,11 +10,11 @@
 #   DEFERRED  — excluded from v1 unless new evidence surfaces
 # ============================================================================
 
-# --- Geography (LOCKED: DEC-001) ---
+# --- Geography (LOCKED: DEC-001, DEC-012) ---
 geography:
-  name: "North Carolina estuarine systems"
+  name: "Pamlico Sound and Neuse River Estuary"
   region: "NC"
-  sub_systems: []  # PENDING: Approve exact sub-systems after Day 3 data overlap audit
+  sub_systems: ["Pamlico Sound", "Neuse River Estuary"]
   coordinate_bounds:
     lat_min: null  # PENDING: Set after overlap audit
     lat_max: null
@@ -61,12 +61,12 @@ focal_species:
 
   - name: "Southern Flounder"
     scientific_name: "Paralichthys lethostigma"
-    type: "estuarine_finfish"
+    type: "southern_flounder"
     status: "LOCKED"
     selection_rationale: "Benthic, heavily surveyed by NCDMF, textbook hypoxia avoidance"
     response_variable: null  # PENDING: Approve
     hypothesis_roles: ["H1", "H2"]
-    trait_table: "01_literature_map/trait_tables/estuarine_finfish.md"
+    trait_table: "01_literature_map/trait_tables/southern_flounder.md"
     healthy_ranges:
       temperature_c: [null, null]    # PENDING: literature
       salinity_psu: [null, null]     # PENDING: literature
@@ -79,6 +79,12 @@ focal_species:
     scientific_name: null  # PENDING: Day 3 species selection (Zostera marina vs. Halodule wrightii)
     type: "habitat_indicator"
     status: "LOCKED"  # Role locked; exact species is a Day 3 decision
+    indicator_resolution: "annual_or_episodic"
+    indicator_note: >
+      SAV is an annual/episodic habitat indicator, not an event-scale target
+      on par with the mobile species. Official NC SAV monitoring relies on
+      infrequent multi-year mapping products. Event-scale attribution of
+      compression to SAV loss is unlikely to be defensible in v1.
     species_decision_note: >
       Zostera marina gives the strongest thermal-limit story but may have limited
       NC coverage. Halodule wrightii is more thermally tolerant with potentially
@@ -95,7 +101,6 @@ focal_species:
     degree_day_base_c: null  # Expected low relevance
     primary_compression_mechanism: "thermal limits and light limitation"
     depth_policy: "shallow_benthic"
-    temporal_resolution_concern: "SAV data may be annual or episodic — see ASM-005"
 
 # --- Variable Classification (LOCKED: DEC-006) ---
 # Strict staging per ontology — do not mix families in kitchen-sink models

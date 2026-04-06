@@ -4,7 +4,7 @@
 
 ## Aim
 
-Build a publication-oriented North Carolina proof-of-concept that tests whether species-specific habitat compression, estimated from dynamic estuarine conditions, can serve as a better management signal than static annual or survey-timed summaries.
+Build a publication-oriented proof-of-concept in Pamlico Sound and the Neuse River Estuary that tests whether species-specific habitat compression, estimated from dynamic estuarine conditions, can serve as a better management signal than static annual or survey-timed summaries.
 
 ## Pipeline Blueprint
 
@@ -19,7 +19,7 @@ Watershed/weather forcing -> Environmental state -> Species response -> Habitat-
 | Southern Flounder | *Paralichthys lethostigma* | Estuarine finfish |
 | Seagrass / SAV | Species TBD at Day 3 | Habitat indicator |
 
-Southern Flounder is the approved estuarine finfish target, selected for its benthic ecology, strong NCDMF survey coverage, and textbook hypoxia-avoidance behavior. The SAV role is locked; the exact species (*Zostera marina* vs. *Halodule wrightii*) depends on NC data availability and will be decided at Day 3 because thresholds differ dramatically between candidates.
+Southern Flounder is the approved estuarine finfish target, selected for its benthic ecology, strong NCDMF survey coverage, and textbook hypoxia-avoidance behavior. The SAV role is locked as an annual/episodic habitat indicator (not an event-scale target on par with the mobile species); the exact species (*Zostera marina* vs. *Halodule wrightii*) depends on NC data availability and will be decided at Day 3 because thresholds differ dramatically between candidates.
 
 ## Data Sources
 
@@ -38,7 +38,7 @@ A benchmarked NC study that maps:
 
 ## v1 Scope Lock
 
-- North Carolina proof-of-concept only
+- Pamlico Sound and Neuse River Estuary pilot
 - Great Lakes used only as introduction context
 - No whole-USA model in v1
 - One central paper claim only

@@ -1,7 +1,7 @@
-# Species Config — Estuarine Finfish
-# Status: LOCKED — Southern Flounder approved as estuarine finfish target
+# Species Config — Southern Flounder (Paralichthys lethostigma)
+# Status: LOCKED — approved as the v1 estuarine finfish target
 
-species_id: "estuarine_finfish"
+species_id: "southern_flounder"
 common_name: "Southern Flounder"
 scientific_name: "Paralichthys lethostigma"
 target_type: "estuarine_finfish"

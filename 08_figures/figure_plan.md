@@ -1,23 +1,24 @@
 # Figure Plan — Trees to Seas v1
 
+> **This repo is scaffold and configuration only. No figures exist yet.**
+
 <!-- TODO: Generate figures during Day 13–14 -->
 
 ## Flagship Figure
 
-**Fig 1: Habitat compression through time and space**
-- NOT a static annual map
-- Show habitat-days or compression fraction over time for one or more focal targets
-- Spatial panel showing where compression occurs within NC estuaries
+**Fig 1: Habitat compression through time**
+- Show temporal compression fraction and consecutive-unsafe-days over time for one or more focal targets at representative stations
 - Temporal panel showing when compression events happen within and across years
+- Station-level or cell-level time series, NOT spatially interpolated maps (DEC-008: spatial compression is DEFERRED)
 
 ## Supporting Figures
 
 **Fig 2: Study area and data coverage**
-- Map of NC estuarine systems with station locations
+- Map of Pamlico Sound and Neuse River Estuary with station locations
 - Temporal coverage bars for each data source
 
 **Fig 3: Species-specific healthy ranges**
-- Multi-panel: one per focal target
+- Multi-panel: one per focal target (blue crab, eastern oyster, Southern Flounder; SAV as annual/episodic panel)
 - Show environmental variable distributions with healthy-range thresholds overlaid
 
 **Fig 4: Benchmark comparison**

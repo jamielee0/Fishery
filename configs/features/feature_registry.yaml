@@ -91,7 +91,7 @@ engineered_features:
     priority: "essential"
     status: "approved_concept"
     species_specific: true
-    primary_targets: ["blue_crab", "estuarine_finfish"]
+    primary_targets: ["blue_crab", "southern_flounder"]
     threshold: null  # TODO: Literature value (commonly ~2.0 mg/L)
     known_risks:
       - "Coarse sampling misses short severe events"

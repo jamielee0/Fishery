@@ -2,7 +2,7 @@
 
 > **This repo is scaffold and configuration only. No pipeline code, no model code, no data, and no results exist yet. Nothing here is runnable science.**
 
-**Dynamic estuarine habitat and fishery risk modeling — North Carolina proof-of-concept (v1)**
+**Dynamic estuarine habitat and fishery risk modeling — Pamlico Sound and Neuse River Estuary proof-of-concept (v1)**
 
 ## Research Question
 
@@ -21,7 +21,7 @@ Species-specific habitat compression estimated from dynamic water conditions pro
 | Southern Flounder | *Paralichthys lethostigma* | Estuarine finfish | Hypoxia-temperature squeeze |
 | Seagrass / SAV | Species TBD at Day 3 | Habitat indicator | Thermal limits and light limitation |
 
-Southern Flounder is the approved finfish target. SAV role is locked; the exact species (*Zostera marina* vs. *Halodule wrightii*) is a Day 3 decision because thresholds differ dramatically between candidates.
+Southern Flounder is the approved finfish target. SAV role is locked as an annual/episodic habitat indicator (not an event-scale target on par with the mobile species); the exact species (*Zostera marina* vs. *Halodule wrightii*) is a Day 3 decision because thresholds differ dramatically between candidates.
 
 ## Key Environmental Variables
 
@@ -82,7 +82,7 @@ make test
 
 ## v1 Scope Rules
 
-- North Carolina only. Great Lakes is context, not modeling geography.
+- Pamlico Sound and Neuse River Estuary pilot. Great Lakes is context, not modeling geography.
 - One central paper claim only.
 - Observational, benchmarked modeling paper — not a management platform.
 - No fabricated data. No fake results.

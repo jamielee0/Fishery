@@ -18,7 +18,7 @@ schema:
 
     - name: target_type
       type: string
-      enum: [mobile_crustacean, sessile_bivalve, estuarine_finfish, habitat_indicator]
+      enum: [mobile_crustacean, sessile_bivalve, southern_flounder, habitat_indicator]
       required: true
 
     - name: response_variable
