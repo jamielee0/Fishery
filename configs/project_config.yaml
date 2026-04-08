@@ -16,10 +16,12 @@ geography:
   region: "NC"
   sub_systems: ["Pamlico Sound", "Neuse River Estuary"]
   coordinate_bounds:
-    lat_min: null  # PENDING: Set after overlap audit
-    lat_max: null
-    lon_min: null
-    lon_max: null
+    # Day 3: Approximate bounds for Pamlico Sound + Neuse River Estuary
+    # These are approximate geographic extents — refine after spatial data loaded
+    lat_min: 34.85   # PENDING REFINEMENT: southern Pamlico Sound
+    lat_max: 35.55   # PENDING REFINEMENT: upper Neuse River Estuary
+    lon_min: -77.15  # PENDING REFINEMENT: western shore
+    lon_max: -75.45  # PENDING REFINEMENT: Outer Banks barrier
   crs: "EPSG:4326"
 
 # --- Focal Species & Targets (LOCKED) ---
@@ -191,32 +193,51 @@ rejected_variables:
 
 # --- Date Ranges ---
 date_ranges:
-  nominal_start: null   # PENDING: Day 3 data inventory
+  nominal_start: null   # PENDING: Blocked by Ty's GitHub and NERRS confirmation
   nominal_end: null
-  overlap_start: null   # PENDING: Day 3 overlap audit
+  overlap_start: null   # PENDING: HUMAN APPROVAL NEEDED after blockers resolved
   overlap_end: null
-  notes: "Use strongest overlap window, not longest wish list (brief_v1.md)."
+  day3_estimates:
+    optimistic_start: "2003"
+    optimistic_end: "2024"
+    optimistic_duration_years: 21
+    conservative_start: "2007"
+    conservative_end: "2023"
+    conservative_duration_years: 16
+    binding_constraint: "Start of continuous bottom environmental monitoring (Ty's GitHub or NERRS)"
+    confidence: "LOW — cannot set window until Ty's GitHub data and NERRS bottom sensors are confirmed"
+  notes: |
+    Day 3 finding: overlap window cannot be finalized. Forcing data (USGS, NOAA weather)
+    and response data (Program 195) have long records. The binding constraint is the start
+    of continuous estuarine environmental monitoring with bottom sensors. FerryMon starts
+    ~2000-2002 but is surface-only (DEC-007 violation). Ty's GitHub data temporal range
+    is unknown. NERRS station availability in study area is unconfirmed.
 
 # --- Data Source Paths ---
 source_paths:
-  # All paths null until Day 3 data inventory confirms access
-  ferrymon: null
-  noaa_stations: null
-  usgs_stations: null
-  ty_github: null
-  fishery_independent: null
-  oyster_layers: null
-  seagrass_layers: null
-  habitat_layers: null
-  watershed_landuse: null
+  # Day 3 update: All paths still null. No downloads tested.
+  # Status reflects Day 3 desktop research findings.
+  ferrymon: null            # UNCONFIRMED — access URL not verified; SURFACE ONLY (DEC-007 violation)
+  noaa_estuarine: null      # UNCONFIRMED — must confirm stations inside study area + bottom sondes
+  usgs_stations: null       # UNCONFIRMED — program exists (public); must confirm gauge IDs
+  noaa_weather: null        # UNCONFIRMED — program exists (public); must choose product
+  ty_github: null           # BLOCKED — cannot locate repository (CRITICAL BLOCKER)
+  fishery_independent: null # BLOCKED — requires formal NCDMF data request (not yet submitted)
+  oyster_monitoring: null   # UNCONFIRMED — provider and access method unknown
+  seagrass_layers: null     # UNCONFIRMED — episodic campaigns; provider unconfirmed
+  habitat_layers: null      # UNCONFIRMED — program exists (public); must confirm specific product
 
 # --- Analysis Unit ---
 analysis_unit:
   preferred: "estuary-cell-week"
   fallback: "estuary-week"
-  spatial_resolution: null  # PENDING: Define cell size
+  spatial_resolution: null  # PENDING: Define cell size — depends on confirmed station density
   temporal_resolution: "weekly"  # PENDING: may move to daily if data supports (ASM-004)
-  notes: "Sub-weekly resolution may be needed for DO crash events"
+  notes: |
+    Day 3: Sub-weekly resolution may be needed for DO crash events.
+    FerryMon provides sub-daily transect data but surface only.
+    NERRS provides 15-min data if stations exist in study area.
+    Ty's GitHub resolution unknown. Cannot finalize until sources confirmed.
 
 # --- Habitat Compression Definition (LOCKED: DEC-008) ---
 habitat_compression:

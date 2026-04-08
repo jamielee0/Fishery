@@ -1,8 +1,15 @@
 # ============================================================================
-# Data Source Registry — Trees to Seas v1 (Day 2)
+# Data Source Registry — Trees to Seas v1 (Day 3 Update)
 # ============================================================================
-# Access status for all sources is UNCONFIRMED until Day 3 inventory.
-# Do not claim access that has not been tested.
+# Updated 2026-04-08 based on Day 3 desktop research.
+# Access status reflects domain knowledge assessment — no downloads tested.
+#
+# Status tags:
+#   CONFIRMED       — source known to exist from established programs
+#   UNCONFIRMED     — plausible but not verified by direct access
+#   SURFACE_ONLY    — confirmed limitation on measurement depth
+#   BLOCKED         — cannot proceed without human action
+#   REQUEST_ONLY    — requires formal data request (not public download)
 # ============================================================================
 
 sources:
@@ -10,180 +17,318 @@ sources:
   # --- Forcing Variable Sources ---
 
   - id: "noaa_weather"
-    name: "NOAA Weather / Gridded Products"
-    provider: "NOAA"
+    name: "NOAA Weather / Climate Data"
+    provider: "NOAA NCEI"
+    provider_confidence: "CONFIRMED"
     family: "forcing"
     variables_expected:
       - "basin_precipitation"
       - "air_temperature"
       - "wind_speed_direction"
-    access_method: null  # TODO: API, download, or gridded product
-    url: null  # TODO: Day 3 inventory
-    temporal_range: null  # TODO: Day 3 inventory
-    temporal_resolution: "daily"  # Expected
-    spatial_coverage: "NC coastal region"
-    spatial_resolution: null  # TODO: Station vs. gridded
-    format: null  # TODO: Day 3
-    access_status: "UNCONFIRMED"
+    variables_confirmed: false  # Day 3: variables are standard for NCEI but not tested
+    access_method: "API or bulk download (GHCN-Daily or gridded products)"
+    url: null  # UNCONFIRMED — do not invent; human must verify specific product
+    temporal_range_start: "~1940s (station-dependent)"
+    temporal_range_end: "present"
+    temporal_range_confidence: "HIGH"
+    temporal_resolution: "daily"
+    spatial_coverage: "Multiple stations in coastal NC (New Bern, Morehead City, Hatteras area)"
+    spatial_coverage_confidence: "HIGH"
+    spatial_resolution: "station or ~4km gridded (product-dependent)"
+    measurement_depth: "N/A (atmospheric)"
+    format: null  # Product-dependent
+    access_status: "UNCONFIRMED — program exists, specific access untested"
     credentials_needed: "No (public)"
-    notes: ""
+    blockers: "Must choose station-based vs. gridded product; confirm specific station IDs"
+    blocker_severity: "LOW"
+    notes: "NOAA NCEI is the federal climate data archive. Standard source, minimal access risk."
+    day3_action: "Confirm product choice and station/grid IDs"
 
   - id: "usgs_stations"
-    name: "USGS Streamflow and Water Quality"
+    name: "USGS Streamflow Stations"
     provider: "USGS"
+    provider_confidence: "CONFIRMED"
     family: "forcing"
     variables_expected:
       - "river_discharge"
-    access_method: "API"  # NWIS web services
-    url: null  # TODO: Identify specific NC gauges
-    temporal_range: null  # TODO: Day 3
-    temporal_resolution: "daily"
-    spatial_coverage: null  # TODO: Identify gauges linked to NC estuaries
-    spatial_resolution: "gauge"
-    format: null
-    access_status: "UNCONFIRMED"
+    variables_confirmed: false  # Day 3: discharge is standard for NWIS but specific gauges not tested
+    access_method: "API (NWIS web services)"
+    url: null  # UNCONFIRMED — NWIS is well-known but specific gauge URLs not verified
+    candidate_gauges:
+      - id: "02089500"
+        name: "Neuse River at Kinston, NC"
+        confidence: "HIGH — canonical gauge per published literature"
+      - id: "TBD"
+        name: "Tar River / Pamlico River gauge(s)"
+        confidence: "UNCONFIRMED — must identify"
+    temporal_range_start: "~1930s (Neuse at Kinston)"
+    temporal_range_end: "present"
+    temporal_range_confidence: "HIGH"
+    temporal_resolution: "daily (daily mean and instantaneous)"
+    spatial_coverage: "Neuse River watershed and Tar-Pamlico watershed gauges"
+    spatial_coverage_confidence: "HIGH"
+    spatial_resolution: "gauge point"
+    measurement_depth: "N/A (river gauge, not estuarine)"
+    format: "USGS waterml, tab-delimited, JSON"
+    access_status: "UNCONFIRMED — program exists, specific access untested"
     credentials_needed: "No (public API)"
-    notes: "Must identify gauges representative of receiving estuaries"
+    blockers: "Must confirm full gauge ID list for both watersheds"
+    blocker_severity: "LOW"
+    notes: "USGS NWIS is the standard federal streamflow source. Gauge 02089500 is the canonical Neuse discharge gauge."
+    day3_action: "Confirm gauge IDs for Neuse and Tar-Pamlico watersheds"
 
   # --- Local Estuarine State Sources ---
 
   - id: "ferrymon"
-    name: "FerryMon and Related Water-Quality Feeds"
-    provider: null  # TODO: Confirm provider
+    name: "FerryMon Water-Quality Monitoring"
+    provider: "UNC Institute of Marine Sciences (UNC-IMS)"
+    provider_confidence: "CONFIRMED"
     family: "local_estuarine_state"
     variables_expected:
-      - "bottom_water_temperature"
-      - "bottom_salinity"
-      - "bottom_dissolved_oxygen"
-      - "turbidity_clarity"
-    access_method: null  # TODO: API or download
-    url: null  # TODO: Day 3
-    temporal_range: null  # TODO: Day 3
-    temporal_resolution: "sub-daily to daily"  # Expected
-    spatial_coverage: "NC ferry routes / estuarine transects"
-    spatial_resolution: "transect / station"
+      - "water_temperature"
+      - "salinity"
+      - "dissolved_oxygen"
+      - "turbidity"
+      - "chlorophyll_fluorescence"
+      - "pH"
+    variables_confirmed: false  # Day 3: variables are standard for FerryMon but not tested
+    access_method: null  # UNCONFIRMED — likely web download or data request
+    url: null  # UNCONFIRMED — do not invent
+    temporal_range_start: "~2000-2002"
+    temporal_range_end: "present"
+    temporal_range_confidence: "MEDIUM"
+    temporal_resolution: "near-continuous along transects (multiple crossings/day)"
+    spatial_coverage: "Pamlico Sound ferry routes: Cedar Island-Ocracoke, Swan Quarter-Ocracoke, Cherry Branch-Minnesott Beach (Neuse River)"
+    spatial_coverage_confidence: "MEDIUM"
+    spatial_resolution: "transect / along-track points"
+    measurement_depth: "SURFACE_ONLY (~1-1.5m intake depth)"
+    measurement_depth_confidence: "HIGH"
     format: null
     access_status: "UNCONFIRMED"
-    credentials_needed: null  # TODO
-    notes: "Key source for dynamic estuarine state. Must confirm bottom vs. surface measurements."
-    reviewer_concern: "Verify depth of measurement — surface readings invalid for benthic species"
+    credentials_needed: null
+    blockers: |
+      CRITICAL: Surface-only measurements violate DEC-007 for benthic taxa.
+      FerryMon CANNOT serve as the primary bottom-data source for blue crab,
+      oyster, or Southern Flounder models.
+    blocker_severity: "HIGH"
+    notes: |
+      FerryMon uses a flow-through system on NC DOT ferries. Valuable for
+      surface state and turbidity/clarity (SAV pathway), and for spatial
+      transect coverage of open Pamlico Sound. But the surface-only limitation
+      is a hard constraint for DEC-007 compliance.
+    day3_finding: "Surface-only confirmed. Variable ontology incorrectly lists FerryMon as a bottom-data source."
+    day3_action: "HUMAN: Confirm access URL. This source remains valuable for surface state and turbidity even though it cannot satisfy DEC-007."
 
   - id: "noaa_estuarine"
-    name: "NOAA Estuarine Stations (NERRS, CO-OPS, etc.)"
-    provider: "NOAA"
+    name: "NOAA Estuarine Stations (NERRS SWMP)"
+    provider: "NOAA / NC National Estuarine Research Reserve"
+    provider_confidence: "CONFIRMED (program exists nationally; NC station specifics UNCONFIRMED)"
     family: "local_estuarine_state"
     variables_expected:
-      - "bottom_water_temperature"
-      - "bottom_salinity"
-      - "bottom_dissolved_oxygen"
+      - "water_temperature"
+      - "salinity"
+      - "dissolved_oxygen"
+      - "pH"
+      - "turbidity"
       - "water_level"
-    access_method: "API"
-    url: null  # TODO: Identify NC estuarine stations
-    temporal_range: null
-    temporal_resolution: "sub-daily"  # Expected for continuous stations
-    spatial_coverage: null  # TODO: Identify NC estuarine stations
-    spatial_resolution: "station"
+    variables_confirmed: false
+    access_method: "API (CDMO web services) or bulk download"
+    url: null  # UNCONFIRMED — CDMO portal exists but specific NC station URLs not verified
+    temporal_range_start: "~1995-2003 (varies by station)"
+    temporal_range_end: "present"
+    temporal_range_confidence: "LOW — NC station start dates not confirmed"
+    temporal_resolution: "15-minute intervals (continuous)"
+    spatial_coverage: "NC NERRS reserve components — UNCONFIRMED whether any stations are inside Pamlico Sound interior or Neuse River Estuary"
+    spatial_coverage_confidence: "LOW"
+    spatial_resolution: "fixed station"
+    measurement_depth: "UNCONFIRMED — some NERRS stations nationally deploy paired surface+bottom sondes; NC station configuration not verified"
+    measurement_depth_confidence: "LOW"
     format: null
     access_status: "UNCONFIRMED"
-    credentials_needed: "No (public API)"
-    notes: "Must confirm which stations have bottom sensors vs. surface only"
+    credentials_needed: "No (CDMO is public)"
+    blockers: |
+      Must confirm: (a) which NC NERRS stations are inside the study area
+      (Pamlico Sound / Neuse River Estuary), and (b) which have bottom sondes.
+      If stations are all near Beaufort/inlet areas, they provide no direct
+      coverage of the study area.
+    blocker_severity: "HIGH"
+    notes: "NERRS SWMP is a standardized national monitoring program. NC reserve component includes Rachel Carson and potentially other sites."
+    day3_action: "HUMAN: Use CDMO station finder to identify NC NERRS stations inside study area. Check for bottom sonde deployments."
 
   - id: "ty_github"
     name: "Ty's GitHub Environmental Data"
-    provider: null  # TODO: Confirm repo and maintainer
+    provider: null  # UNKNOWN — cannot locate
+    provider_confidence: "NONE"
     family: "local_estuarine_state"
-    variables_expected: null  # TODO: Catalog after locating repo
-    access_method: "GitHub repo"
-    url: null  # TODO: Locate repo URL
-    temporal_range: null
+    variables_expected: null  # UNKNOWN — variable_ontology.md implies bottom temp, sal, DO, turbidity
+    variables_confirmed: false
+    access_method: "GitHub repo (claimed)"
+    url: null  # CRITICAL: No URL found anywhere in repo
+    temporal_range_start: null
+    temporal_range_end: null
+    temporal_range_confidence: "NONE"
     temporal_resolution: null
     spatial_coverage: null
+    spatial_coverage_confidence: "NONE"
     spatial_resolution: null
+    measurement_depth: "UNCONFIRMED — if this is a ModMon/AVP compilation, it may include bottom profiles"
+    measurement_depth_confidence: "NONE"
     format: null
-    access_status: "UNCONFIRMED"
-    credentials_needed: "No (public repo?)"
-    notes: "Referenced in brief_v1.md. Must locate, catalog variables, and confirm provenance before use."
-    provenance_requirement: "Source documentation required before any modeling use"
+    access_status: "BLOCKED — cannot locate repository"
+    credentials_needed: null
+    blockers: |
+      CRITICAL BLOCKER: Cannot locate this repository. No URL, no provider name,
+      no variable catalog, no temporal range. This source is referenced in
+      brief_v1.md and variable_ontology.md as providing bottom environmental
+      measurements. If it cannot be found, the project has no confirmed source
+      of continuous bottom data for the study area.
+    blocker_severity: "CRITICAL"
+    provenance_requirement: "Source documentation required before any modeling use (per Day 2 registry)"
+    notes: |
+      DEC-012 rationale mentions ModMon and AVPs (both UNC-IMS programs) as
+      key Pamlico Sound data sources. Ty's GitHub may be a compilation of these
+      programs. If so, confirming the URL would resolve the bottom-data gap for
+      at least the Neuse River Estuary.
+    day3_action: "HUMAN APPROVAL NEEDED: Provide repo URL or confirm this source does not exist."
 
   # --- Response Variable Sources ---
 
   - id: "fishery_independent"
-    name: "Fishery-Independent Survey Data"
-    provider: null  # TODO: Likely NC DMF
+    name: "Fishery-Independent Survey (NCDMF Program 195)"
+    provider: "NC Division of Marine Fisheries (NCDMF)"
+    provider_confidence: "CONFIRMED"
     family: "response"
     variables_expected:
-      - "blue_crab_cpue"
-      - "finfish_cpue"
-    access_method: null  # TODO: May require data request
-    url: null
-    temporal_range: null
-    temporal_resolution: "survey event"
-    spatial_coverage: "NC estuarine waters"
-    spatial_resolution: "set / station / stratum"
+      - "species_catch"
+      - "tow_effort"
+      - "gear_metadata"
+      - "station_location"
+      - "date"
+      - "environmental_readings_at_tow"  # UNCONFIRMED whether recorded systematically
+    variables_confirmed: false
+    access_method: "Formal data request to NCDMF"
+    url: null  # No public download portal
+    temporal_range_start: "1987"
+    temporal_range_end: "present"
+    temporal_range_confidence: "HIGH (per DEC-012)"
+    temporal_resolution: "survey event (monthly sampling; June and September are key windows)"
+    spatial_coverage: "NC estuarine waters including Pamlico Sound and Neuse River Estuary"
+    spatial_coverage_confidence: "HIGH"
+    spatial_resolution: "station/set within sampling strata; lat/lon per tow"
+    measurement_depth: "trawl samples near-bottom water column"
     format: null
-    access_status: "UNCONFIRMED"
-    credentials_needed: null  # TODO: May need formal data request
-    notes: "Critical for blue crab and finfish targets. Must include effort data for CPUE standardization."
+    access_status: "BLOCKED — formal data request not yet submitted"
+    credentials_needed: "Yes — formal data request to NCDMF"
+    blockers: |
+      Access requires formal data request. Processing time unknown — may take
+      weeks. Must confirm species list includes Southern Flounder and blue crab
+      with sufficient sample sizes for standardization.
+    blocker_severity: "HIGH"
     survey_metadata_needed:
-      - "gear type"
+      - "gear type and dimensions"
       - "tow duration / effort"
-      - "sampling design / stratification"
+      - "sampling design / stratification scheme"
       - "species identification protocols"
       - "survey timing within year"
+      - "environmental readings at tow (bottom temp, sal, DO — if collected)"
+    notes: "Program 195 is the NCDMF Estuarine Trawl Survey, running since 1987. Referenced in DEC-012 as key data source."
+    day3_action: "HUMAN APPROVAL NEEDED: Submit data request to NCDMF today."
 
   - id: "oyster_monitoring"
-    name: "Oyster Monitoring / Survey Layers"
-    provider: null  # TODO: Likely NC DMF or NOAA
+    name: "Oyster Monitoring / Sanctuary Surveys"
+    provider: null  # UNCONFIRMED — likely NCDMF and/or NC Coastal Federation
+    provider_confidence: "LOW"
     family: "response"
     variables_expected:
       - "oyster_live_density"
       - "oyster_condition"
       - "reef_extent"
-    access_method: null
+      - "spat_counts"
+    variables_confirmed: false
+    access_method: null  # UNCONFIRMED
     url: null
-    temporal_range: null
-    temporal_resolution: null  # TODO: May be seasonal or annual
-    spatial_coverage: null
+    temporal_range_start: null  # UNCONFIRMED
+    temporal_range_end: null
+    temporal_range_confidence: "NONE"
+    temporal_resolution: null  # UNCONFIRMED — likely annual or seasonal
+    spatial_coverage: null  # Expected: oyster sanctuaries in Pamlico Sound / Neuse
+    spatial_coverage_confidence: "LOW"
     spatial_resolution: "reef / site"
+    measurement_depth: "reef-level (bottom)"
     format: null
     access_status: "UNCONFIRMED"
     credentials_needed: null
-    notes: "Must confirm temporal resolution. If sparse, event-scale attribution limited."
+    blockers: |
+      Provider, access method, temporal range, and temporal resolution are all
+      unconfirmed. If only annual surveys exist, event-scale compression analysis
+      for oysters is not feasible. Dermo prevalence data availability unknown
+      (ASM-009).
+    blocker_severity: "HIGH"
+    notes: "NC oyster sanctuary monitoring exists but specific program and data custodian not confirmed."
+    day3_action: "HUMAN APPROVAL NEEDED: Identify NC oyster monitoring program and data custodian."
 
   - id: "sav_layers"
     name: "Seagrass / SAV Mapping Data"
-    provider: null  # TODO: Likely NOAA or state agencies
+    provider: null  # UNCONFIRMED — likely NOAA C-CAP, APNEP, NC DEQ
+    provider_confidence: "LOW"
     family: "response"
     variables_expected:
       - "sav_extent"
       - "sav_presence_absence"
-    access_method: null
+      - "species_composition"
+    variables_confirmed: false
+    access_method: "download (GIS layers)"
     url: null
-    temporal_range: null
-    temporal_resolution: null  # TODO: May be episodic (ASM-005)
-    spatial_coverage: null
+    temporal_range_start: null  # UNCONFIRMED — episodic campaigns
+    temporal_range_end: null
+    temporal_range_confidence: "NONE"
+    temporal_resolution: "EPISODIC — multi-year intervals (estimated 3-10 years between campaigns)"
+    spatial_coverage: "NC sounds — UNCONFIRMED whether Pamlico Sound specifically is well covered"
+    spatial_coverage_confidence: "LOW"
     spatial_resolution: "bed / polygon"
-    format: null
+    measurement_depth: "shallow benthic (aerial/satellite mapping)"
+    format: "GIS shapefiles / polygons (expected)"
     access_status: "UNCONFIRMED"
     credentials_needed: null
-    notes: "Temporal resolution is a key risk. See ASM-005."
+    blockers: |
+      Episodic temporal resolution (multi-year gaps) cannot support event-scale
+      analysis (confirms DEC-013). May not even support annual trend analysis if
+      campaigns are >5 years apart. Species selection (Zostera marina vs.
+      Halodule wrightii) cannot proceed without knowing campaign dates and
+      species-level coverage.
+    blocker_severity: "HIGH"
+    sav_species_notes: |
+      Primary NC species: Halodule wrightii (shoalgrass — widespread, thermally
+      tolerant), Zostera marina (eelgrass — near inlets, at southern range limit,
+      declining), Ruppia maritima (widgeongrass — lower salinity areas).
+      Preliminary recommendation: H. wrightii for pragmatic NC coverage.
+      Z. marina gives stronger thermal-limit story but may have very limited
+      current extent in Pamlico Sound.
+    day3_action: "HUMAN: Identify SAV campaign dates and download source. Confirm Pamlico Sound coverage. This blocks species selection."
 
   # --- Habitat-Condition Sources ---
 
   - id: "habitat_layers"
     name: "Bathymetry, Substrate, and Habitat Layers"
-    provider: null  # TODO: Multiple sources likely
+    provider: "NOAA NCEI (Coastal Relief Model / Coastal DEMs) + state GIS"
+    provider_confidence: "CONFIRMED (program exists)"
     family: "habitat_condition"
     variables_expected:
       - "bathymetry_depth"
       - "benthic_habitat_substrate"
-    access_method: null
-    url: null
-    temporal_range: "static to episodic"
+    variables_confirmed: false
+    access_method: "download (raster/vector GIS)"
+    url: null  # UNCONFIRMED — specific product URL not verified
+    temporal_range: "static (composite survey)"
     temporal_resolution: "static"
-    spatial_coverage: "NC estuarine waters"
-    spatial_resolution: null  # TODO
-    format: null
-    access_status: "UNCONFIRMED"
-    credentials_needed: null
-    notes: "Static layers; main risk is outdated maps and vertical datum mismatch"
+    spatial_coverage: "Pamlico Sound and NC estuarine waters"
+    spatial_coverage_confidence: "MEDIUM"
+    spatial_resolution: "~3-10m for NOAA coastal DEMs; Pamlico Sound shallow-water resolution may be coarser"
+    measurement_depth: "full water column (depth measurement)"
+    format: "raster GeoTIFF or NetCDF (expected)"
+    access_status: "UNCONFIRMED — program exists, specific access untested"
+    credentials_needed: "No (public)"
+    blockers: "Low risk. Main concerns: vintage (outdated surveys), vertical datum mismatch, shallow-water resolution."
+    blocker_severity: "LOW"
+    notes: "NOAA NCEI Coastal Relief Model and Coastal DEMs are standard sources. USACE surveys may provide supplemental coverage."
+    day3_action: "Confirm specific DEM product for Pamlico Sound and vertical datum."
